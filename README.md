@@ -2,6 +2,25 @@
 
 This repository stores reusable Agent skills and lightweight documentation for collaborating with AI tools on this corpus.
 
+## Quick Start
+
+Install a skill with:
+
+```bash
+npx skills add c2kaka/fancy-skills --path skills/<skill-name>
+```
+
+Replace `<skill-name>` with a folder under `skills/`, for example `analyze-ai-agent-codebase` or `bootstrap-ai-collab-infra`.
+
+Then invoke in your agent terminal (or load the same skill name in your host's skill picker):
+
+```
+/analyze-ai-agent-codebase      # Methodically read an unfamiliar AI-agent codebase
+/bootstrap-ai-collab-infra      # Scaffold layered docs, integration catalog, and CLAUDE.md for another repo
+```
+
+Your host may use `@` mentions, rules, or file paths instead of slash commands; the skill identity is the folder name under `skills/`.
+
 ## Structure
 
 - `skills/`: each skill lives in its own folder
