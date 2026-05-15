@@ -1,0 +1,4 @@
+interface:
+  display_name: "Change Risk Review"
+  short_description: "Review AI-coded git changes and write classified commit notes"
+  default_prompt: "Use $change-risk-review to inspect the current git changes, summarize behavior/protocol/architecture risks, identify affected historical features and golden tests, then help write a commit message with concrete change categories after user confirmation."
