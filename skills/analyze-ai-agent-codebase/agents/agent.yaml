@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analyze Agent Codebase"
+  short_description: "Analyze agent runtime architecture"
+  default_prompt: "Use $analyze-ai-agent-codebase to analyze an open-source AI agent repository and explain its architecture, execution flow, and extension points."
