@@ -1,4 +1,4 @@
 interface:
   display_name: "AI Agent 框架设计指南"
-  short_description: "分析现状并撰写 Agent/Skill/Runtime 设计稿"
-  default_prompt: "Use $ai-agent-framework-design-guide to analyze the current AI agent system and write a Chinese-first framework design document with rollout phases, plus optional risks and open questions."
+  short_description: "撰写或评审 Agent/Skill/Runtime 架构设计文档"
+  default_prompt: "Use $ai-agent-framework-design-guide to analyze the current AI agent system or proposed design, then write or review a Chinese-first framework design document with clear boundaries, flows, lifecycle rules, rollout phases, evidence requirements, and open questions."
