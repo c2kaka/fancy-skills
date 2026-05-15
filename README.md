@@ -10,11 +10,12 @@ Install a skill with:
 npx skills add c2kaka/fancy-skills --path skills/<skill-name>
 ```
 
-Replace `<skill-name>` with a folder under `skills/`, for example `analyze-ai-agent-codebase` or `bootstrap-ai-collab-infra`.
+Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, or `bootstrap-ai-collab-infra`.
 
 Then invoke in your agent terminal (or load the same skill name in your host's skill picker):
 
 ```
+/ai-agent-framework-design-guide # Analyze an AI agent system and draft a Chinese-first framework design document
 /analyze-ai-agent-codebase      # Methodically read an unfamiliar AI-agent codebase
 /bootstrap-ai-collab-infra      # Scaffold layered docs, integration catalog, and CLAUDE.md for another repo
 ```
@@ -32,6 +33,7 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 
 ## Included Skills
 
+- `ai-agent-framework-design-guide`: analyze existing AI agent / skill / runtime systems and write Chinese-first framework design documents with rollout phases, plus optional risks and open questions
 - `analyze-ai-agent-codebase`: analyze open-source AI agent repositories through layers, contracts, execution loops, tools, and trade-offs
 - `bootstrap-ai-collab-infra`: generate the layered-docs + API catalog + conceptual schema + `CLAUDE.md` + read-only `docs-auto-sync` playbook for arbitrary repositories
 
