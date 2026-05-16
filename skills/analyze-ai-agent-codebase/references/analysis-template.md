@@ -79,14 +79,40 @@ For each major subsystem, use:
 - gave up:
 - worth it because:
 
-## 9. Extension Paths
+## 9. Influence Radius and Cross-Cutting Risk Map
+
+For the feature or subsystem under study:
+
+- layers touched:
+- modules that share the same state:
+- implicit dependencies (config flags, queues, schedules, caches):
+- same concept implemented differently across modules:
+- risk classification per crossing point (same-layer / cross-layer / cross-module / cross-state):
+
+## 10. Constraints and Decision History
+
+- explicit constraints obeyed:
+- implicit conventions discovered (not enforced by types or tests):
+- constraint violations or boundary crossings found:
+- design decisions traced via git history (blame, PRs, commit messages):
+- intentionally inelegant code and the constraints that caused it:
+
+## 11. Explanation-Power Self-Check
+
+- why was it done this way? (intent, not mechanism):
+- what alternatives were considered or would be viable?:
+- where is the weakest point or highest risk?:
+
+If any answer is missing or shallow, revisit the relevant contracts and history before finalizing the report.
+
+## 12. Extension Paths
 
 - safest customization path:
 - moderate customization path:
 - high-risk architectural surgery:
 - files to start from:
 
-## 10. Applicability Judgment
+## 13. Applicability Judgment
 
 - best-fit use cases:
 - poor-fit use cases:

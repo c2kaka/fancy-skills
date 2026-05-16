@@ -223,3 +223,62 @@ Borrow these habits directly:
 - end every subsystem reading with a trade-off judgment
 
 Those habits transfer cleanly to other AI agent repos even when the language, framework, or product surface is different.
+
+## Going Deeper on a Single Feature or Subsystem
+
+When the goal shifts from surveying the whole repo to understanding one feature thoroughly, the reading discipline changes. Apply these additional practices:
+
+### 1. Map the influence radius before drawing conclusions
+
+Do not study a feature in isolation. Before you judge its design, map:
+
+- which layers, modules, and packages it touches
+- which other subsystems share its state, config, or event channels
+- whether the same concept is implemented differently elsewhere — and why
+
+A feature that looks over-engineered in one module may be the correct response to constraints in another.
+
+### 2. Read the git history as design documentation
+
+Contracts and types reveal what the system does. Git blame, commit messages, and linked PRs reveal why it does it that way.
+
+When you encounter a surprising choice:
+
+- check who wrote it and when
+- read the commit message and linked issue or PR
+- look for revert commits or follow-up changes nearby
+- search for ADR documents or design discussion threads
+
+This is often faster and more accurate than guessing from the code alone.
+
+### 3. Distinguish intentional design from drift
+
+Not every inconsistency is a bug. Some common sources of intentional variation:
+
+- backward compatibility with older clients, APIs, or data formats
+- performance optimizations that violate a clean abstraction locally
+- module-specific constraints that make a generic pattern unsuitable
+- code written under a deadline and later cemented by downstream dependencies
+
+Before flagging something as inconsistent, ask: is this drift (the constraint was forgotten) or adaptation (the constraint changed)?
+
+### 4. Validate understanding with the explanation-power test
+
+After finishing your reading of a feature, answer:
+
+1. **Why was it done this way?** — if you can only describe the mechanism, you have not reached the design intent yet.
+2. **What alternatives existed?** — if you cannot name at least one rejected alternative, you may be missing the trade-off.
+3. **Where is the weakest point?** — if you cannot identify a risk boundary, you may not understand the failure modes.
+
+Use these questions as a self-check before writing up findings.
+
+### 5. Layer your context for future consumers
+
+When you produce a write-up of a feature, organize it in four layers so that both humans and AI agents can consume it efficiently:
+
+1. **Project facts**: tech stack, module location, entry points, dependencies.
+2. **Architecture constraints**: layering rules, boundary conventions, what the code is not allowed to do.
+3. **Business semantics**: what domain concepts the feature maps, where the project's definitions diverge from industry defaults.
+4. **Decision history**: why this approach was chosen, what was tried and rejected, which parts are intentionally inelegant.
+
+This layered structure makes the write-up useful as reusable context for future AI-assisted development on the same codebase.

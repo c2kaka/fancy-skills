@@ -101,7 +101,39 @@ For every important module, write:
 
 Prefer the format `got / gave up / why worth it`.
 
-### 7. End with reuse guidance
+### 7. Trace the influence radius
+
+For the feature or subsystem under study, map how far its reach extends across the codebase:
+
+- which layers does it touch?
+- which other modules read or write the same state?
+- are there implicit dependencies such as config flags, message queues, scheduled jobs, or shared caches?
+- does the same concept appear in multiple modules with different implementations?
+
+Mark each crossing point with its risk level: same-layer / cross-layer / cross-module / cross-state. The wider the influence radius, the more carefully you should trace the full topology before drawing conclusions.
+
+### 8. Check constraints and uncover decision history
+
+Surface both the explicit and implicit rules the system follows. For the area under study, ask:
+
+- which layering rules, boundary conventions, or coding norms does this code obey or violate?
+- where does it rely on an unwritten convention that is not enforced by types or tests?
+- what does the git history (blame, commit messages, linked PRs) reveal about why this approach was chosen over alternatives?
+- which parts look intentionally inelegant — possibly a local optimum forced by business constraints, backward compatibility, or a previously failed attempt?
+
+Treat past decisions as first-class context. Code that looks wrong in isolation may be correct given constraints you have not yet discovered.
+
+### 9. Apply the explanation-power self-check
+
+After studying a feature or subsystem, validate depth of understanding by answering three questions:
+
+1. **Why was it done this way?** — intent, not just mechanism.
+2. **What alternatives were considered or would be viable?** — trade-off awareness.
+3. **Where is the weakest point or highest risk?** — boundary and failure-mode identification.
+
+If you cannot answer all three, the analysis is incomplete. Go back and re-read the relevant contracts, git history, or cross-module dependencies before producing the final report.
+
+### 10. End with reuse guidance
 
 Conclude by mapping likely modification paths:
 
@@ -137,6 +169,9 @@ Avoid these traps:
 - mixing up code extensions with prompt-only skills
 - treating UI code as architecture-defining when it is only a consumer
 - summarizing modules without tracing any real end-to-end path
+- stopping at "what the code does" without asking "why it was done this way"
+- assuming inconsistency is a bug when it may be an intentional adaptation to different constraints
+- ignoring git history — blame, commit messages, and linked PRs often reveal the real reason behind surprising design choices
 
 ## Output Contract
 
@@ -148,6 +183,9 @@ Produce a concise but architecture-aware report with:
 4. one or two end-to-end execution paths
 5. extension surfaces and safety boundaries
 6. major trade-offs
-7. recommended entry points for future modification
+7. influence radius and cross-cutting risk map
+8. constraint violations or undocumented conventions discovered
+9. key design decisions and their historical rationale
+10. recommended entry points for future modification
 
 When the user asks for depth, use [references/analysis-template.md](references/analysis-template.md) as the report skeleton.
