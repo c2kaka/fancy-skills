@@ -1,6 +1,6 @@
 ---
 name: change-risk-review
-description: Use when Codex needs to review current git changes for AI-coding risk, summarize behavior changes, affected historical features, protocol/schema changes, golden-test evidence, and uncertainty before commit; also use when the user confirms the review and asks Codex to commit, so the commit message includes concrete change categories such as tuning, behavior change, protocol change, or architecture change with PR-review-ready details.
+description: Use when Codex needs to review current git changes for AI-coding risk, summarize behavior changes, affected historical features, protocol/schema changes, golden-test evidence, change diffusion path, architecture constraint violations, verification adequacy, hallucination-risk types, and uncertainty before commit; also use when the user confirms the review and asks Codex to commit, so the commit message includes concrete change categories with review-level signals (low/medium/high) and PR-review-ready details.
 ---
 
 # Change Risk Review
@@ -8,8 +8,6 @@ description: Use when Codex needs to review current git changes for AI-coding ri
 ## Overview
 
 Use this skill as a lightweight safety gate for fast AI-assisted development. It turns a raw git diff into a focused risk review, then, only after user confirmation, helps create a commit message that classifies the change and describes the concrete impact for PR reviewers.
-
-Default to Chinese output unless the repository or user request clearly prefers English.
 
 ## Workflow
 
@@ -27,53 +25,77 @@ Do not assume unstaged changes are yours. If unrelated files are dirty, isolate 
 
 ## Review Output
 
-Lead with risks and evidence, not a generic summary. Cover these five required questions:
+Lead with risks and evidence, not a generic summary. Cover these seven required questions:
 
-1. 改了哪些行为
+1. What behaviors changed
    - Describe user-visible behavior, agent routing behavior, prompt/LLM behavior, state transitions, persistence behavior, or error-handling behavior that changed.
 
-2. 可能影响哪些历史功能
+2. Which existing features may be affected
    - Name likely affected existing flows, especially planner routing, skill routing, session memory, resume/rerun, rollback, streaming, frontend protocol payloads, and golden scenarios.
 
-3. 新增/修改了哪些协议字段
+3. Which protocol fields were added or modified
    - Check JSON payloads, message `additional_kwargs`, session/memory fields, config keys, API parameters, frontend-rendered markdown/custom markup, database fields, and enum/status values.
    - If no protocol field changed, say so explicitly.
 
-4. 跑了哪些 golden tests
+4. Which golden tests were run, and is verification adequate
    - List exact commands or state that no tests were run.
    - Distinguish golden/regression tests from incidental tests.
    - If no golden tests exist, recommend the smallest scenario that should become one.
+   - **Verification adequacy**: When changes involve caching, database schema, messaging protocols, transaction consistency, or cross-service calls, flag whether verification is sufficient even if the diff is small. Evaluate: are hot/cold data paths, cache invalidation, and backward-compatible reads covered? Does the test environment reflect production data distribution? Are there verification blind spots that are hard to automate?
 
-5. 哪些地方是 AI 不确定的
+5. Where is the AI uncertain
    - Identify assumptions, unverified compatibility, missing tests, ambiguous ownership, migration uncertainty, or areas where behavior depends on prompts/model output.
+   - **Focus on three hallucination risk types**:
+     - Business-semantic errors: The AI fills in based on generic understanding, but the project's actual definitions differ (e.g., state-machine meanings, permission models, billing semantics diverge from industry defaults).
+     - Boundary-condition errors: The AI covers the happy path but misses extreme inputs, concurrency, timeouts, retries, or partial-failure scenarios.
+     - Dependency-cognition errors: The AI assumes a dependency behaves per documentation or common patterns, but the actual project differs due to legacy reasons or special configuration.
+
+6. Change diffusion path
+   - Assess which architecture layers (controller / service / repository / message / config, etc.) and module boundaries the change touches simultaneously.
+   - The more cross-layer, cross-module, and state-consistency-involved the change is, the higher the inspection level should be.
+   - Watch specifically for the AI "following the chain all the way down," causing a single commit's scope to exceed expectations.
+
+7. Whether known architecture constraints were breached
+   - Check the change against explicit constraints in the project's CLAUDE.md, architecture docs, and coding conventions.
+   - Common breach patterns: service layer depending directly on controller DTOs, new synchronous remote calls on critical paths, hard deletes instead of soft deletes, cross-layer direct repository access, domain exceptions leaking infrastructure details.
+   - If the project lacks explicit constraint documentation, note "Project lacks explicit architecture constraints; consider adding them."
 
 Use this structure:
 
 ```markdown
-**风险 Review**
+**Risk Review**
 
-- 行为变化：...
-- 可能影响的历史功能：...
-- 协议/字段变化：...
-- Golden tests：...
-- AI 不确定点：...
+- Behavior changes: ...
+- Affected existing features: ...
+- Protocol/field changes: ...
+- Golden tests & verification adequacy: ...
+- AI uncertainties (including hallucination risks): ...
+- Change diffusion path: ...
+- Architecture constraint breaches: ...
 
-**建议**
+**Recommendations**
 - ...
 ```
 
 ## Risk Classification
 
-Classify the change using one or more categories:
+Classify the change using one or more categories. Each category carries a review level that signals how rigorously the commit should be inspected:
 
-| 分类 | 触发条件 |
-| --- | --- |
-| 调优 | prompt、阈值、排序、打分、策略微调；目标是不改变协议和主流程契约 |
-| 行为变更 | 用户可见输出、路由结果、错误处理、恢复/重跑行为、默认策略发生变化 |
-| 协议变更 | JSON、message、session、memory、config、API 参数、enum/status、frontend payload 字段变化 |
-| 架构变更 | Planner/Skill/Action/Runtime/Memory/Tool 的责任边界、调用链、生命周期或状态主控权变化 |
+| Category | Trigger conditions | Review level |
+| --- | --- | --- |
+| Tuning | Prompt, threshold, ranking, scoring, or strategy tweaks; goal is no change to protocol or main-flow contracts | 🟢 Low: quick confirmation suffices |
+| Behavior change | User-visible output, routing results, error handling, resume/rerun behavior, or default strategy changed | 🟡 Medium: confirm impact scope and regression coverage |
+| Protocol change | JSON, message, session, memory, config, API parameter, enum/status, or frontend payload field changes | 🟠 Medium-high: confirm compatibility strategy and migration plan |
+| Architecture change | Responsibility boundaries, call chains, lifecycle, or state ownership of Planner/Skill/Action/Runtime/Memory/Tool changed | 🔴 High: senior engineer or TL must confirm each item |
 
-If a change fits multiple categories, keep all relevant categories. Do not down-classify a protocol or architecture change as tuning just because the diff is small.
+If a change fits multiple categories, keep all relevant categories and adopt the **highest** review level among them. Do not down-classify a protocol or architecture change as tuning just because the diff is small.
+
+### Review-level requirements
+
+- 🟢 Low: clear commit-message classification suffices
+- 🟡 Medium: impact scope must list concrete modules/chains; golden tests must be run or explicitly marked as missing
+- 🟠 Medium-high: additionally, compatibility strategy (backward-compatible / breaking) and migration steps must be stated
+- 🔴 High: additionally, a human must confirm design intent; attaching a design note or ADR link is recommended
 
 ## Commit Gate
 
@@ -98,20 +120,27 @@ Recommended format:
 ```text
 <type>: <short summary>
 
-变更分类：
-- 调优：<具体说明 prompt/阈值/策略如何变化；没有则删除此行>
-- 行为变更：<具体说明用户可见行为或 agent 行为如何变化；没有则删除此行>
-- 协议变更：<具体说明字段、payload、状态或兼容策略如何变化；没有则删除此行>
-- 架构变更：<具体说明责任边界、调用链、生命周期或状态主控权如何变化；没有则删除此行>
+Change classification: [Review level: 🟢Low / 🟡Medium / 🟠Medium-high / 🔴High]
+- Tuning: <what prompt/threshold/strategy changed; omit if none>
+- Behavior change: <what user-visible or agent behavior changed; omit if none>
+- Protocol change: <what fields/payloads/states/compatibility strategy changed; omit if none>
+- Architecture change: <what responsibility boundaries/call chains/lifecycle/state ownership changed; omit if none>
 
-影响面：
-- <列出可能受影响的历史功能、模块、链路或 golden scenarios>
+Impact scope:
+- <list affected historical features, modules, chains, or golden scenarios>
 
-验证：
-- <列出已运行测试命令或说明未运行及原因>
+Change diffusion:
+- <state which architecture layers/modules this change spans; single-layer local or multi-layer cascade>
 
-AI 不确定点：
-- <列出剩余假设、未覆盖风险；没有则写“无明确残留不确定点”>
+Architecture constraints:
+- <state whether known architecture constraints were breached; if not, write "No constraint breach">
+
+Verification:
+- <list test commands run, or state not run and why>
+- <when changes involve cache/DB/messaging/transactions, include verification adequacy assessment>
+
+AI uncertainties:
+- <list remaining assumptions, uncovered risks, hallucination risk types (business-semantic / boundary-condition / dependency-cognition); if none, write "No significant residual uncertainty">
 ```
 
 Examples:
@@ -119,37 +148,51 @@ Examples:
 ```text
 feat: route action skills through session orchestrator
 
-变更分类：
-- 行为变更：Planner skill 命中 DATA_QUERY 后改为通过统一 ticket 执行，避免绕过 child session 主链。
-- 协议变更：child message 增加 control/action_payload 分层读取逻辑，并保留旧字段兼容读取。
-- 架构变更：parent-child session 主控从 Planner/DataQueryAction 分散写入收敛到 ActionSessionOrchestrator。
+Change classification: [Review level: 🔴High]
+- Behavior change: Planner skill hitting DATA_QUERY now executes through a unified ticket, avoiding bypass of the child session main chain.
+- Protocol change: child message adds control/action_payload layered read logic, with backward-compatible read of legacy fields.
+- Architecture change: parent-child session control converges from scattered Planner/DataQueryAction writes to ActionSessionOrchestrator.
 
-影响面：
-- 影响 Planner skill、DATA_QUERY resume/rerun、artifact rollback、parent action_link 状态回写。
+Impact scope:
+- Affects Planner skill, DATA_QUERY resume/rerun, artifact rollback, parent action_link state writeback.
 
-验证：
+Change diffusion:
+- Spans service/orchestrator/message/repository four layers, involving parent-child session bidirectional state sync.
+
+Architecture constraints:
+- No constraint breach (ActionSessionOrchestrator follows adapter-layer isolation rule).
+
+Verification:
 - uv run pytest tests/planner_agent/test_data_query_resume.py -q
 - uv run pytest tests/planner_agent/test_planner_skills.py -q
+- Note: missing end-to-end golden scenario for BUILD/GOVERNANCE round-level recovery; verification coverage is incomplete.
 
-AI 不确定点：
-- BUILD/GOVERNANCE 的 round 级恢复还缺少端到端 golden scenario。
+AI uncertainties:
+- Business-semantic risk: BUILD round recovery state-machine meaning may differ from generic understanding.
+- BUILD/GOVERNANCE round-level recovery still lacks an end-to-end golden scenario.
 ```
 
 ```text
 tune: adjust planner skill routing threshold
 
-变更分类：
-- 调优：提高 skill route 置信度阈值，减少低置信度 prompt-only skill 误命中。
-- 行为变更：边界输入更可能回退到普通 Planner 路由。
+Change classification: [Review level: 🟡Medium]
+- Tuning: raised skill route confidence threshold to reduce low-confidence prompt-only skill false hits.
+- Behavior change: borderline inputs are now more likely to fall back to regular Planner routing.
 
-影响面：
-- 可能影响 skill 命中率、普通规划兜底链路、历史 prompt-only skill 场景。
+Impact scope:
+- May affect skill hit rate, regular planning fallback path, historical prompt-only skill scenarios.
 
-验证：
+Change diffusion:
+- Only touches planner skill routing single layer; no cross-module spread.
+
+Architecture constraints:
+- No constraint breach.
+
+Verification:
 - uv run pytest tests/planner_agent/test_planner_skills.py -q
 
-AI 不确定点：
-- 未用真实线上问题集回放阈值变化。
+AI uncertainties:
+- Dependency-cognition risk: threshold change has not been replayed against a real production query set; production data distribution may differ from test set.
 ```
 
 Keep the first line concise. Put detailed classification in the body, not only in the subject.
