@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interview Prep From Project"
+  short_description: "从已有项目提炼简历亮点、生成面试问题与参考答案三份文档"
+  default_prompt: "使用 $interview-prep-from-project 针对当前项目（或我指定的模块），先读懂代码提炼可写进简历的项目亮点落地到 highlights.md，再从面试官视角针对亮点挖掘面试问题落地到 questions.md，最后逐题生成紧扣本项目的参考答案落地到 answers.md。三份文档放在 interview-prep/ 目录下。"
