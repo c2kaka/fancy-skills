@@ -10,7 +10,7 @@ Install a skill with:
 npx skills add c2kaka/fancy-skills --path skills/<skill-name>
 ```
 
-Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, or `change-risk-review`.
+Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, or `feature-intake`.
 
 Then invoke in your agent terminal (or load the same skill name in your host's skill picker):
 
@@ -19,7 +19,7 @@ Then invoke in your agent terminal (or load the same skill name in your host's s
 /analyze-ai-agent-codebase      # Methodically read an unfamiliar AI-agent codebase
 /bootstrap-ai-collab-infra      # Scaffold layered docs, integration catalog, and CLAUDE.md for another repo
 /change-risk-review             # Review git changes for risk classification before commit
-```
+/feature-intake                 # Reverse a single source of truth from HTML prototype + backend API docs, surfacing implicit business behavior as explicit human decisions
 
 Your host may use `@` mentions, rules, or file paths instead of slash commands; the skill identity is the folder name under `skills/`.
 
@@ -38,6 +38,7 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `analyze-ai-agent-codebase`: analyze open-source AI agent repositories through layers, contracts, execution loops, tools, and trade-offs
 - `bootstrap-ai-collab-infra`: generate the layered-docs + API catalog + conceptual schema + `CLAUDE.md` + read-only `docs-auto-sync` playbook for arbitrary repositories
 - `change-risk-review`: review git changes for behavior, protocol, and architecture risk before commit, then generate a classified commit message after user confirmation
+- `feature-intake`: reverse-engineer a Feature Intake Spec from an HTML prototype + backend API docs, scan for five classes of implicit-behavior gaps, and force every gap to an explicit human decision or TODO before implementation
 
 ## Companion files
 

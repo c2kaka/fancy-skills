@@ -20,6 +20,7 @@ See layered and dependency diagrams in `docs/architecture.md`.
 |------|------|
 | `skills/analyze-ai-agent-codebase/` | Methodology skill for reading AI agent codebases; primary artifact is `SKILL.md`, with deferred templates under `references/`. |
 | `skills/bootstrap-ai-collab-infra/` | Meta-playbook skill that prescribes how to author `docs/*`, `CLAUDE.md`, and the read-only `docs-auto-sync` helper for other repositories. |
+| `skills/feature-intake/` | Frontend-only intake skill that turns an HTML prototype + backend API doc pair into a Feature Intake Spec, with a built-in 5-class gap scanner. Ships its own spec template, checklist, and real-case references. |
 | `skills/*/agents/` | Thin YAML descriptors (`display_name`, `default_prompt`) for hosts that substitute `$<skill-name>` tokens. |
 | `docs/` | Architecture narrative, integration surface catalog, conceptual data model + ER SVG. |
 | `.claude/skills/docs-auto-sync/` | Read-only drift checker skill comparing docs to filesystem facts (report-only). |
