@@ -6,6 +6,7 @@ description: >
   当用户拿到原型 HTML 和后端接口文档要开始前端开发、提到"梳理需求/反推需求/需求提取/
   看不懂产品意图/原型和接口对不上/开始一个新功能/feature intake/spec 撰写"时触发。
   即使用户没说"intake"，只要语境是"从原型+接口开始一个前端功能"，也应用这个 skill。
+disable-model-invocation: true
 ---
 
 # Feature Intake —— 从原型 + 接口文档反推单一真相源

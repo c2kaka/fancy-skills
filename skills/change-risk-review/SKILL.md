@@ -1,6 +1,7 @@
 ---
 name: change-risk-review
 description: Use when Codex needs to review current git changes for AI-coding risk, summarize behavior changes, affected historical features, protocol/schema changes, golden-test evidence, change diffusion path, architecture constraint violations, verification adequacy, hallucination-risk types, and uncertainty before commit; also use when the user confirms the review and asks Codex to commit, so the commit message includes concrete change categories with review-level signals (low/medium/high) and PR-review-ready details.
+disable-model-invocation: true
 ---
 
 # Change Risk Review

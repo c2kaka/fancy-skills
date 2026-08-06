@@ -1,6 +1,7 @@
 ---
 name: bootstrap-ai-collab-infra
 description: Bootstraps an AI-human collaboration documentation kit for any codebase by authoring layered architecture diagrams, integration surface catalogs, conceptual data models with ER SVG, reconciling inconsistencies, generating root CLAUDE.md, and adding a read-only docs drift skill. Use when the user requests full AI collaboration infrastructure, automated documentation bootstrap, architecture plus API catalog plus data model deliverables, or repeating the fancy-skills documentation playbook on another repository.
+disable-model-invocation: true
 ---
 
 # Bootstrap AI Collaboration Infrastructure

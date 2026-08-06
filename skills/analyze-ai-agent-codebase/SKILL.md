@@ -1,6 +1,7 @@
 ---
 name: analyze-ai-agent-codebase
 description: Analyze open-source AI agent, coding agent, agent runtime, and multi-agent repositories by extracting architecture layers, core type contracts, execution loops, tool pipelines, extension points, and design trade-offs. Use when Codex needs a reusable method to read unfamiliar agent codebases, compare frameworks, review an agent's source structure, or explain how to extend or reuse an existing AI agent project.
+disable-model-invocation: true
 ---
 
 # Analyze AI Agent Codebase

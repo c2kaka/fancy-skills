@@ -1,6 +1,7 @@
 ---
 name: ai-agent-framework-design-guide
 description: Guide for writing or reviewing AI Agent / Skill / Runtime framework design documents in Chinese-first style. Use when Codex needs to analyze an existing AI agent system or a proposed design, extract current architecture and constraints, define goals and boundaries, design layered architecture, routing and execution flows, configuration and interface models, runtime enhancement mechanisms, safety and fallback strategies, observability, rollout phases, review checklists, and risks/open questions. Trigger for requests such as writing a framework design doc, reviewing a design guide, architecture proposal, skill system design, runtime design, agent routing design, or turning scattered implementation notes into a formal architecture or review document.
+disable-model-invocation: true
 ---
 
 # AI Agent Framework Design Guide

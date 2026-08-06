@@ -1,6 +1,7 @@
 ---
 name: interview-prep-from-project
 description: 用于从已有代码项目提炼简历可写的项目亮点、生成面试问题与参考答案，产出三份中文落地文档。Use when the user is preparing for interviews and wants to mine an existing project for resume highlights (architecture design, technical challenges, performance optimization, design patterns), then turn those highlights into interviewer-style questions and reference answers as Markdown documents. 触发场景：用户说「为面试准备」「挖掘项目亮点」「简历项目亮点」「从项目提炼面试题」「面试问答准备」，或要求针对某个项目/仓库/模块产出亮点、面试题、参考答案。
+disable-model-invocation: true
 ---
 
 # Interview Prep From Project
