@@ -1,0 +1,7 @@
+interface:
+  display_name: "Spec to Executable Tickets"
+  short_description: "Turn product specs into evidence-backed executable tickets"
+  default_prompt: "Use $spec-to-executable-tickets in Analysis Mode to turn these product materials into validated, dependency-ready tickets."
+
+policy:
+  allow_implicit_invocation: false
