@@ -2,14 +2,14 @@
 
 ## 1. Project positioning
 
-`fancy-skills` is a **small, Git-versioned library of Agent skills** (Markdown workflows plus optional YAML bindings and reference docs). It ships **no runtime server**, **no database**, and **no REST API**—value is in portable instructions consumed by Cursor, Claude Code, Codex-style hosts, or similar agent shells.
+`fancy-skills` is a **small, Git-versioned library of Agent skills and Codex custom-agent definitions** (Markdown workflows, optional YAML bindings and references, plus standalone Agent TOML). It ships **no runtime server**, **no database**, and **no REST API**—value is in portable instructions consumed by Cursor, Claude Code, Codex-style hosts, or similar agent shells.
 
 ## 2. Core architecture
 
 Three conceptual planes work together:
 
-1. **Consumption plane** — Host products load `SKILL.md` (and sometimes `agents/*.yaml`) to decide when and how to run a workflow.
-2. **Package plane** — Each skill under `skills/<name>/` bundles manifest (`SKILL.md` frontmatter), optional UI hooks (`agents/`), and optional deep references (`references/`).
+1. **Consumption plane** — Host products load `SKILL.md` and optional `skills/*/agents/*.yaml`; Codex loads registered top-level `agents/*.toml` roles.
+2. **Package plane** — Each skill under `skills/<name>/` bundles manifest (`SKILL.md` frontmatter), optional UI hooks (`agents/`), and optional deep references (`references/`); top-level `agents/` stores reusable custom-agent definitions.
 3. **Documentation plane** — Root `README.md` plus `docs/` explain repo-wide conventions and conceptual schemas so humans and AI share one map.
 
 See layered and dependency diagrams in `docs/architecture.md`.
@@ -21,8 +21,11 @@ See layered and dependency diagrams in `docs/architecture.md`.
 | `skills/analyze-ai-agent-codebase/` | Methodology skill for reading AI agent codebases; primary artifact is `SKILL.md`, with deferred templates under `references/`. |
 | `skills/bootstrap-ai-collab-infra/` | Meta-playbook skill that prescribes how to author `docs/*`, `CLAUDE.md`, and the read-only `docs-auto-sync` helper for other repositories. |
 | `skills/feature-intake/` | Frontend-only intake skill that turns an HTML prototype + backend API doc pair into a Feature Intake Spec, with a built-in 5-class gap scanner. Ships its own spec template, checklist, and real-case references. |
+| `skills/propagate-api-contract-changes/` | Contract-propagation skill that traces backend API and Schema changes through frontend boundaries, consumers, fixtures, and verification. |
+| `skills/run-local-fullstack-debug/` | Manual-only local environment and cross-layer debugging skill for startup, readiness, real end-to-end flows, and evidence-backed fault localization. |
 | `skills/spec-to-executable-tickets/` | Manual-only specification convergence skill with Analysis and Delivery modes; turns multi-source product evidence into human-owned specs, evidence-backed gaps, and dependency-ready Tickets, including frontend interaction extraction and real Chrome acceptance. |
 | `skills/*/agents/` | Thin YAML descriptors (`display_name`, `default_prompt`) for hosts that substitute `$<skill-name>` tokens. |
+| `agents/ticket-queue-executor.toml` | Codex custom Agent that executes eligible repository Tickets serially in dependency order and records verification evidence. |
 | `docs/` | Architecture narrative, integration surface catalog, conceptual data model + ER SVG. |
 | `.claude/skills/docs-auto-sync/` | Read-only drift checker skill comparing docs to filesystem facts (report-only). |
 
@@ -39,7 +42,8 @@ See layered and dependency diagrams in `docs/architecture.md`.
 2. Point your Agent host at a skill folder or install via your platform’s skill mechanism.
 3. For analysis methodology, invoke **`analyze-ai-agent-codebase`** when exploring unfamiliar agent repositories.
 4. To regenerate conceptual docs for *another* codebase using the same playbook, use skill **`bootstrap-ai-collab-infra`** from `skills/bootstrap-ai-collab-infra/SKILL.md`.
-5. After substantive edits, optionally run **`docs-auto-sync`** (read-only) to list documentation drift.
+5. To install the custom Ticket executor, copy `agents/ticket-queue-executor.toml` into the Codex agents directory and register `[agents.ticket_queue_executor]` in the user configuration as shown in `README.md`.
+6. After substantive edits, optionally run **`docs-auto-sync`** (read-only) to list documentation drift.
 
 There is **nothing to `npm install` or `docker compose up`** in this repository today.
 

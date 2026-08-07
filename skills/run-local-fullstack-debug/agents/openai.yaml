@@ -1,0 +1,7 @@
+interface:
+  display_name: "Local Full-Stack Debug"
+  short_description: "Start, integrate, and debug a local full-stack system"
+  default_prompt: "Use $run-local-fullstack-debug to start the local stack, reproduce the flow, and trace failures across layers."
+
+policy:
+  allow_implicit_invocation: false

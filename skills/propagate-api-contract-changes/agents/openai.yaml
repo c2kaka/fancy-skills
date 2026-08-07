@@ -1,0 +1,4 @@
+interface:
+  display_name: "Propagate API Contract Changes"
+  short_description: "Trace backend contract changes through frontend layers"
+  default_prompt: "Use $propagate-api-contract-changes to apply this backend contract change across the frontend and verify affected layers."
