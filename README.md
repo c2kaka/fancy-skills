@@ -10,7 +10,7 @@ Install a skill with:
 npx skills add c2kaka/fancy-skills --path skills/<skill-name>
 ```
 
-Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `feature-intake`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, or `spec-to-executable-tickets`.
+Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `feature-intake`, `jira-auto-fix`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, or `spec-to-executable-tickets`.
 
 Then invoke in your agent terminal (or load the same skill name in your host's skill picker):
 
@@ -20,6 +20,8 @@ Then invoke in your agent terminal (or load the same skill name in your host's s
 /bootstrap-ai-collab-infra      # Scaffold layered docs, integration catalog, and CLAUDE.md for another repo
 /change-risk-review             # Review git changes for risk classification before commit
 /feature-intake                 # Reverse a single source of truth from HTML prototype + backend API docs, surfacing implicit business behavior as explicit human decisions
+/jira-auto-fix                  # Reproduce, diagnose, test, fix, and locally commit an approved JIRA bug repair
+/my-jira-query                  # Query and summarize a JIRA issue using skill-local .env credentials
 /propagate-api-contract-changes # Carry backend contract changes through every affected frontend layer
 /run-local-fullstack-debug      # Start, integrate, and trace failures across a local full-stack system
 /spec-to-executable-tickets     # Convert product materials into human-owned specs, evidence-backed gaps, and dependency-ready tickets
@@ -44,6 +46,8 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `bootstrap-ai-collab-infra`: generate the layered-docs + API catalog + conceptual schema + `CLAUDE.md` + read-only `docs-auto-sync` playbook for arbitrary repositories
 - `change-risk-review`: review git changes for behavior, protocol, and architecture risk before commit, then generate a classified commit message after user confirmation
 - `feature-intake`: reverse-engineer a Feature Intake Spec from an HTML prototype + backend API docs, scan for five classes of implicit-behavior gaps, and force every gap to an explicit human decision or TODO before implementation
+- `jira-auto-fix`: stably reproduce and diagnose a JIRA bug, require solution approval before edits, add a regression test, implement the fix, and stop after a locally approved commit
+- `my-jira-query`: query JIRA issue details through a read-only Python client configured by a Git-ignored, skill-local `.env` file
 - `propagate-api-contract-changes`: trace backend API and Schema changes through frontend clients, types, mappers, state, UI, fixtures, and tests, then verify the complete contract path
 - `run-local-fullstack-debug`: manually start and verify a repository's local stack, exercise a real end-to-end flow, and localize failures across browser, frontend, gateway, backend, and data dependencies
 - `spec-to-executable-tickets`: convert PRDs, prototypes, contracts, code, and runtime evidence into Delivery and Interaction Specs, human decision packets, proven implementation gaps, and executable Tickets; optionally hand approved Tickets to the dependency-aware executor for implementation and real Chrome acceptance

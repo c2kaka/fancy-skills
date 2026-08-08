@@ -21,6 +21,8 @@ See layered and dependency diagrams in `docs/architecture.md`.
 | `skills/analyze-ai-agent-codebase/` | Methodology skill for reading AI agent codebases; primary artifact is `SKILL.md`, with deferred templates under `references/`. |
 | `skills/bootstrap-ai-collab-infra/` | Meta-playbook skill that prescribes how to author `docs/*`, `CLAUDE.md`, and the read-only `docs-auto-sync` helper for other repositories. |
 | `skills/feature-intake/` | Frontend-only intake skill that turns an HTML prototype + backend API doc pair into a Feature Intake Spec, with a built-in 5-class gap scanner. Ships its own spec template, checklist, and real-case references. |
+| `skills/jira-auto-fix/` | Codex-native JIRA bug workflow with stable reproduction, evidence-backed diagnosis, approval gates, multimodal attachment inspection, regression testing, and local-commit-only delivery. |
+| `skills/my-jira-query/` | Read-only JIRA query skill backed by a standard-library Python client and a Git-ignored, skill-local `.env` configuration. |
 | `skills/propagate-api-contract-changes/` | Contract-propagation skill that traces backend API and Schema changes through frontend boundaries, consumers, fixtures, and verification. |
 | `skills/run-local-fullstack-debug/` | Manual-only local environment and cross-layer debugging skill for startup, readiness, real end-to-end flows, and evidence-backed fault localization. |
 | `skills/spec-to-executable-tickets/` | Manual-only specification convergence skill with Analysis and Delivery modes; turns multi-source product evidence into human-owned specs, evidence-backed gaps, and dependency-ready Tickets, including frontend interaction extraction and real Chrome acceptance. |
@@ -42,8 +44,10 @@ See layered and dependency diagrams in `docs/architecture.md`.
 2. Point your Agent host at a skill folder or install via your platform’s skill mechanism.
 3. For analysis methodology, invoke **`analyze-ai-agent-codebase`** when exploring unfamiliar agent repositories.
 4. To regenerate conceptual docs for *another* codebase using the same playbook, use skill **`bootstrap-ai-collab-infra`** from `skills/bootstrap-ai-collab-infra/SKILL.md`.
-5. To install the custom Ticket executor, copy `agents/ticket-queue-executor.toml` into the Codex agents directory and register `[agents.ticket_queue_executor]` in the user configuration as shown in `README.md`.
-6. After substantive edits, optionally run **`docs-auto-sync`** (read-only) to list documentation drift.
+5. To fix a JIRA bug, configure `skills/jira-auto-fix/.env` from `.env.example` and invoke **`jira-auto-fix`**; it must reproduce and obtain solution approval before editing, and it stops after a local commit.
+6. To query JIRA without changing code, configure `skills/my-jira-query/.env` from `.env.example` and invoke **`my-jira-query`** with an issue key.
+7. To install the custom Ticket executor, copy `agents/ticket-queue-executor.toml` into the Codex agents directory and register `[agents.ticket_queue_executor]` in the user configuration as shown in `README.md`.
+8. After substantive edits, optionally run **`docs-auto-sync`** (read-only) to list documentation drift.
 
 There is **nothing to `npm install` or `docker compose up`** in this repository today.
 

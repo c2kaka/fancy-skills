@@ -1,0 +1,4 @@
+interface:
+  display_name: "My JIRA Query"
+  short_description: "Query JIRA issue details using local .env credentials"
+  default_prompt: "Use $my-jira-query to retrieve and summarize JIRA-1234 without modifying the issue."
