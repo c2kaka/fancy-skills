@@ -10,7 +10,7 @@ Install a skill with:
 npx skills add c2kaka/fancy-skills --path skills/<skill-name>
 ```
 
-Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `feature-intake`, `jira-auto-fix`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, or `spec-to-executable-tickets`.
+Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `feature-intake`, `interview-prep-from-project`, `jira-auto-fix`, `jira-update`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, or `spec-to-executable-tickets`.
 
 Then invoke in your agent terminal (or load the same skill name in your host's skill picker):
 
@@ -20,7 +20,9 @@ Then invoke in your agent terminal (or load the same skill name in your host's s
 /bootstrap-ai-collab-infra      # Scaffold layered docs, integration catalog, and CLAUDE.md for another repo
 /change-risk-review             # Review git changes for risk classification before commit
 /feature-intake                 # Reverse a single source of truth from HTML prototype + backend API docs, surfacing implicit business behavior as explicit human decisions
+/interview-prep-from-project    # Mine an existing project for resume highlights, interview questions, and reference answers as Markdown docs
 /jira-auto-fix                  # Reproduce, diagnose, test, fix, and locally commit an approved JIRA bug repair
+/jira-update                    # Preview and return a completed JIRA fix to a confirmed tester
 /my-jira-query                  # Query and summarize a JIRA issue using skill-local .env credentials
 /propagate-api-contract-changes # Carry backend contract changes through every affected frontend layer
 /run-local-fullstack-debug      # Start, integrate, and trace failures across a local full-stack system
@@ -36,8 +38,7 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `skills/<skill-name>/agents/`: UI-facing agent metadata (optional)
 - `skills/<skill-name>/references/`: load-on-demand reference material (optional)
 - `agents/`: reusable Codex custom-agent TOML definitions
-- `docs/`: architecture panorama, integration surfaces, conceptual data model (`architecture.md`, `api-list.md`, `data-model.md`, `data-model-er.svg`)
-- `.claude/skills/`: Claude-local helper skills (e.g. read-only docs drift reporting)
+- `tests/`: cross-skill Python tests (e.g. `test_jira_update.py`)
 
 ## Included Skills
 
@@ -46,7 +47,9 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `bootstrap-ai-collab-infra`: generate the layered-docs + API catalog + conceptual schema + `CLAUDE.md` + read-only `docs-auto-sync` playbook for arbitrary repositories
 - `change-risk-review`: review git changes for behavior, protocol, and architecture risk before commit, then generate a classified commit message after user confirmation
 - `feature-intake`: reverse-engineer a Feature Intake Spec from an HTML prototype + backend API docs, scan for five classes of implicit-behavior gaps, and force every gap to an explicit human decision or TODO before implementation
+- `interview-prep-from-project`: mine an existing code project for resume highlights, interview questions, and reference answers, producing three Chinese Markdown documents
 - `jira-auto-fix`: stably reproduce and diagnose a JIRA bug, require solution approval before edits, add a regression test, implement the fix, and stop after a locally approved commit
+- `jira-update`: turn a completed repair handoff into a confirmed JIRA comment, tester assignment, and workflow transition, with read-only inspection and explicit write approval
 - `my-jira-query`: query JIRA issue details through a read-only Python client configured by a Git-ignored, skill-local `.env` file
 - `propagate-api-contract-changes`: trace backend API and Schema changes through frontend clients, types, mappers, state, UI, fixtures, and tests, then verify the complete contract path
 - `run-local-fullstack-debug`: manually start and verify a repository's local stack, exercise a real end-to-end flow, and localize failures across browser, frontend, gateway, backend, and data dependencies

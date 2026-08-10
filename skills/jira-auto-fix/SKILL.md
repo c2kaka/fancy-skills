@@ -16,6 +16,7 @@ Fix one JIRA bug through a gated Codex workflow. Resolve resource paths relative
 - Preserve pre-existing worktree changes. Never stash, reset, clean, or overwrite them automatically.
 - Stop after creating a local commit. Never pull, fetch, rebase, push, force-push, or create a merge request.
 - Require user confirmation at both gates: before code/test edits and before the local commit.
+- Require the exact JIRA issue key to appear visibly in the local commit subject.
 
 ## Configure JIRA
 
@@ -104,7 +105,7 @@ Present:
 - the regression test's before-fix failure and after-fix pass;
 - focused and broader verification results;
 - self-review findings and remaining risks;
-- proposed local commit message and exact files to stage.
+- proposed local commit message containing the exact JIRA issue key, and exact files to stage.
 
 Stop and wait for explicit commit approval. Adjust the fix if requested.
 
@@ -115,7 +116,7 @@ After commit approval:
 1. Recheck `git status` and the full diff.
 2. Stage only the approved fix and test files by explicit path. Never use `git add .` or `git add -A`.
 3. Confirm `.env`, unrelated changes, generated artifacts, and temporary attachments are not staged.
-4. Follow the repository's commit convention; otherwise use `<JIRA-KEY>: <concise fix summary>`.
+4. Follow the repository's commit convention while keeping the exact JIRA issue key in the subject. For Conventional Commits, prefer `<type>(<scope>): <JIRA-KEY> <concise fix summary>`, for example `fix(dbt): WARP-147650 修复Visual Model 重复退出确认`. If the repository has no convention, use `<JIRA-KEY>: <concise fix summary>`.
 5. Create the commit locally and report its hash, subject, staged files, and post-commit worktree status.
 6. End the workflow. Do not push or create a merge request.
 
