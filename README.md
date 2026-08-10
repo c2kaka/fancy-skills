@@ -22,7 +22,7 @@ Then invoke in your agent terminal (or load the same skill name in your host's s
 /feature-intake                 # Reverse a single source of truth from HTML prototype + backend API docs, surfacing implicit business behavior as explicit human decisions
 /interview-prep-from-project    # Mine an existing project for resume highlights, interview questions, and reference answers as Markdown docs
 /jira-auto-fix                  # Reproduce, diagnose, test, fix, and locally commit an approved JIRA bug repair
-/jira-update                    # Preview and return a completed JIRA fix to a confirmed tester
+/jira-update                    # Preview and apply a completed WARP JIRA fix using the reporter as tester
 /my-jira-query                  # Query and summarize a JIRA issue using skill-local .env credentials
 /propagate-api-contract-changes # Carry backend contract changes through every affected frontend layer
 /run-local-fullstack-debug      # Start, integrate, and trace failures across a local full-stack system
@@ -49,7 +49,7 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `feature-intake`: reverse-engineer a Feature Intake Spec from an HTML prototype + backend API docs, scan for five classes of implicit-behavior gaps, and force every gap to an explicit human decision or TODO before implementation
 - `interview-prep-from-project`: mine an existing code project for resume highlights, interview questions, and reference answers, producing three Chinese Markdown documents
 - `jira-auto-fix`: stably reproduce and diagnose a JIRA bug, require solution approval before edits, add a regression test, implement the fix, and stop after a locally approved commit
-- `jira-update`: turn a completed repair handoff into a confirmed JIRA comment, tester assignment, and workflow transition, with read-only inspection and explicit write approval
+- `jira-update`: turn a completed repair handoff into a confirmed JIRA comment, tester assignment, and workflow transition, with read-only inspection, an approved WARP default path (`Start Process` → `Start Review` → `Start Test` → `TEST`), reporter-as-tester default, and explicit write approval
 - `my-jira-query`: query JIRA issue details through a read-only Python client configured by a Git-ignored, skill-local `.env` file
 - `propagate-api-contract-changes`: trace backend API and Schema changes through frontend clients, types, mappers, state, UI, fixtures, and tests, then verify the complete contract path
 - `run-local-fullstack-debug`: manually start and verify a repository's local stack, exercise a real end-to-end flow, and localize failures across browser, frontend, gateway, backend, and data dependencies

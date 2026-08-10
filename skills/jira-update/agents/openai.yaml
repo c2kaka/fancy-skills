@@ -1,4 +1,4 @@
 interface:
   display_name: "JIRA Update"
   short_description: "Guarded JIRA handoff and partial-update recovery"
-  default_prompt: "Use $jira-update to review a completed JIRA fix, preview its exact workflow and tester, and safely resume any confirmed partial update."
+  default_prompt: "Use $jira-update to preview WARP's TEST workflow, use the reporter as tester, and safely apply the approved JIRA update."

@@ -47,12 +47,12 @@ START_TRANSITIONS = {
         }
     ]
 }
-TEST_TRANSITIONS = {
+REVIEW_TRANSITIONS = {
     "transitions": [
         {
             "id": "21",
-            "name": "Start preview",
-            "to": {"id": "4", "name": "PREVIEW"},
+            "name": "Start Review",
+            "to": {"id": "10001", "name": "Reviewed"},
         }
     ]
 }
@@ -60,7 +60,7 @@ FINAL_TRANSITIONS = {
     "transitions": [
         {
             "id": "31",
-            "name": "Start test",
+            "name": "Start Test",
             "to": {"id": "10002", "name": "TEST"},
         }
     ]
@@ -88,7 +88,7 @@ class JiraUpdateTests(unittest.TestCase):
             FakeResponse(START_TRANSITIONS),
             FakeResponse(),
             FakeResponse(),
-            FakeResponse(TEST_TRANSITIONS),
+            FakeResponse(REVIEW_TRANSITIONS),
             FakeResponse(),
             FakeResponse(FINAL_TRANSITIONS),
             FakeResponse(),
@@ -105,7 +105,7 @@ class JiraUpdateTests(unittest.TestCase):
                 "11",
                 "tester",
                 "TEST",
-                ["Start preview", "Start test"],
+                ["Start Review", "Start Test"],
             )
 
         requests = [call.args[0] for call in urlopen.call_args_list]
@@ -176,14 +176,14 @@ class JiraUpdateTests(unittest.TestCase):
                 "11",
                 "tester",
                 "TEST",
-                ["Start preview", "Start test"],
+                ["Start Review", "Start Test"],
             )
 
         self.assertEqual(
             raised.exception.completed,
             ["添加 comment", "执行 transition 11 -> In Progress"],
         )
-        self.assertIn("transition name 'Start preview'", raised.exception.failed_step)
+        self.assertIn("transition name 'Start Review'", raised.exception.failed_step)
         self.assertEqual(urlopen.call_count, 5)
 
     def test_single_transition_mode_remains_supported(self):
@@ -389,9 +389,9 @@ class JiraUpdateTests(unittest.TestCase):
                     "--target-status",
                     "TEST",
                     "--next-transition-name",
-                    "Start preview",
+                    "Start Review",
                     "--next-transition-name",
-                    "Start test",
+                    "Start Test",
                     "--assignee",
                     "tester",
                     "--confirm",
@@ -415,7 +415,7 @@ class JiraUpdateTests(unittest.TestCase):
             FakeResponse(START_TRANSITIONS),
             FakeResponse(),
             FakeResponse(),
-            FakeResponse(TEST_TRANSITIONS),
+            FakeResponse(REVIEW_TRANSITIONS),
             FakeResponse(),
             FakeResponse(FINAL_TRANSITIONS),
             FakeResponse(),
@@ -434,7 +434,7 @@ class JiraUpdateTests(unittest.TestCase):
                 "11",
                 "tester",
                 "TEST",
-                ["Start preview", "Start test"],
+                ["Start Review", "Start Test"],
             )
 
         self.assertEqual(
@@ -442,7 +442,7 @@ class JiraUpdateTests(unittest.TestCase):
             [
                 "添加 comment",
                 "执行 transition 11 -> In Progress",
-                "执行 transition 21 -> PREVIEW",
+                "执行 transition 21 -> Reviewed",
                 "执行 transition 31 -> TEST",
             ],
         )
