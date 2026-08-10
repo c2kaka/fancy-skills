@@ -10,7 +10,7 @@ Install a skill with:
 npx skills add c2kaka/fancy-skills --path skills/<skill-name>
 ```
 
-Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `feature-intake`, `interview-prep-from-project`, `jira-auto-fix`, `jira-update`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, or `spec-to-executable-tickets`.
+Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `feature-intake`, `interview-prep-from-project`, `jira-auto-fix`, `jira-update`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, `spec-to-executable-tickets`, or `write-weekly-report`.
 
 Then invoke in your agent terminal (or load the same skill name in your host's skill picker):
 
@@ -27,6 +27,7 @@ Then invoke in your agent terminal (or load the same skill name in your host's s
 /propagate-api-contract-changes # Carry backend contract changes through every affected frontend layer
 /run-local-fullstack-debug      # Start, integrate, and trace failures across a local full-stack system
 /spec-to-executable-tickets     # Convert product materials into human-owned specs, evidence-backed gaps, and dependency-ready tickets
+/write-weekly-report            # Generate a Chinese weekly report grouped by project themes from recent git commits
 ```
 
 Your host may use `@` mentions, rules, or file paths instead of slash commands; the skill identity is the folder name under `skills/`.
@@ -54,6 +55,7 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `propagate-api-contract-changes`: trace backend API and Schema changes through frontend clients, types, mappers, state, UI, fixtures, and tests, then verify the complete contract path
 - `run-local-fullstack-debug`: manually start and verify a repository's local stack, exercise a real end-to-end flow, and localize failures across browser, frontend, gateway, backend, and data dependencies
 - `spec-to-executable-tickets`: convert PRDs, prototypes, contracts, code, and runtime evidence into Delivery and Interaction Specs, human decision packets, proven implementation gaps, and executable Tickets; optionally hand approved Tickets to the dependency-aware executor for implementation and real Chrome acceptance
+- `write-weekly-report`: generate a Chinese weekly report from recent git commits, grouped into 5–8 project themes with concise per-item details, defaulting to the `liushengpeng` / `shengpeng.liu` author identity
 
 ## Included Agents
 

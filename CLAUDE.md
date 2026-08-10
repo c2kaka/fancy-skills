@@ -26,6 +26,7 @@ Three conceptual planes work together:
 | `skills/propagate-api-contract-changes/` | Contract-propagation skill that traces backend API and Schema changes through frontend boundaries, consumers, fixtures, and verification. |
 | `skills/run-local-fullstack-debug/` | Manual-only local environment and cross-layer debugging skill for startup, readiness, real end-to-end flows, and evidence-backed fault localization. |
 | `skills/spec-to-executable-tickets/` | Manual-only specification convergence skill with Analysis and Delivery modes; turns multi-source product evidence into human-owned specs, evidence-backed gaps, and dependency-ready Tickets, including frontend interaction extraction and real Chrome acceptance. |
+| `skills/write-weekly-report/` | Read-only git-log skill that groups recent commits by project theme into a Chinese weekly report with title/detail items; defaults to the `liushengpeng` / `shengpeng.liu` author identity and explicit date ranges. |
 | `skills/*/agents/` | Thin YAML descriptors (`display_name`, `default_prompt`) for hosts that substitute `$<skill-name>` tokens. |
 | `agents/ticket-queue-executor.toml` | Codex custom Agent that executes eligible repository Tickets serially in dependency order and records verification evidence. |
 | `tests/` | Cross-skill Python unit tests (e.g. `test_jira_update.py` covering the `jira-update` script). |
@@ -47,6 +48,7 @@ Three conceptual planes work together:
 6. To comment on and return a completed fix to testing, configure `skills/jira-update/.env`, invoke **`jira-update`**, inspect the live workflow, and explicitly confirm the exact comment, tester, and transition before writing. For standard WARP issues, the skill proposes the default path (`11 / Start Process` → hidden `Start Review` → hidden `Start Test` → final status `TEST`) and the reporter as tester; one confirmation of that packet authorizes the whole write.
 7. To query JIRA without changing code, configure `skills/my-jira-query/.env` from `.env.example` and invoke **`my-jira-query`** with an issue key.
 8. To install the custom Ticket executor, copy `agents/ticket-queue-executor.toml` into the Codex agents directory and register `[agents.ticket_queue_executor]` in the user configuration as shown in `README.md`.
+9. To draft a weekly report, invoke **`write-weekly-report`** with an explicit or relative time range; it reads the local git log, groups commits into 5–8 project themes (default author `liushengpeng` / `shengpeng.liu`), and prints a Chinese ordered list with title/detail pairs.
 
 There is **nothing to `npm install` or `docker compose up`** in this repository today.
 
