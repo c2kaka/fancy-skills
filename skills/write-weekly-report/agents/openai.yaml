@@ -1,0 +1,7 @@
+interface:
+  display_name: "周报 Excel 生成"
+  short_description: "根据 Git 提交生成周报 Excel，并按工作量分配总工时"
+  default_prompt: "使用 $write-weekly-report 汇总本周 Git 提交，按我提供的总工时分配任务工时并生成 Excel。"
+
+policy:
+  allow_implicit_invocation: false
