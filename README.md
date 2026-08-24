@@ -21,7 +21,7 @@ Then invoke in your agent terminal (or load the same skill name in your host's s
 /change-risk-review             # Review git changes for risk classification before commit
 /feature-intake                 # Reverse a single source of truth from HTML prototype + backend API docs, surfacing implicit business behavior as explicit human decisions
 /interview-prep-from-project    # Mine an existing project for resume highlights, interview questions, and reference answers as Markdown docs
-/jira-auto-fix                  # Reproduce, diagnose, test, fix, and locally commit an approved JIRA bug repair
+/jira-auto-fix                  # Diagnose with a pyramid/Mermaid review, then test, fix, and locally commit after approvals
 /jira-update                    # Preview and apply a completed WARP JIRA fix using the reporter as tester
 /my-jira-query                  # Query and summarize a JIRA issue using skill-local .env credentials
 /propagate-api-contract-changes # Carry backend contract changes through every affected frontend layer
@@ -49,7 +49,7 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `change-risk-review`: review git changes for behavior, protocol, and architecture risk before commit, then generate a classified commit message after user confirmation
 - `feature-intake`: reverse-engineer a Feature Intake Spec from an HTML prototype + backend API docs, scan for five classes of implicit-behavior gaps, and force every gap to an explicit human decision or TODO before implementation
 - `interview-prep-from-project`: mine an existing code project for resume highlights, interview questions, and reference answers, producing three Chinese Markdown documents
-- `jira-auto-fix`: stably reproduce and diagnose a JIRA bug, require solution approval before edits, add a regression test, implement the fix, and stop after a locally approved commit
+- `jira-auto-fix`: stably reproduce and diagnose a JIRA bug, summarize the review top-down as a plain-language business example, root cause, and recommended solution with evidence-backed Mermaid diagrams when useful, require solution approval before edits, add a regression test, implement the fix, and stop after a locally approved commit
 - `jira-update`: turn a completed repair handoff into a confirmed JIRA comment, tester assignment, and workflow transition, with read-only inspection, an approved WARP default path (`Start Process` → `Start Review` → `Start Test` → `TEST`), reporter-as-tester default, and explicit write approval
 - `my-jira-query`: query JIRA issue details through a read-only Python client configured by a Git-ignored, skill-local `.env` file
 - `propagate-api-contract-changes`: trace backend API and Schema changes through frontend clients, types, mappers, state, UI, fixtures, and tests, then verify the complete contract path

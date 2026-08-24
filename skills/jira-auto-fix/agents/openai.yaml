@@ -1,4 +1,4 @@
 interface:
   display_name: "JIRA Auto Fix"
-  short_description: "Reproduce, diagnose, fix, test, and locally commit JIRA bugs"
-  default_prompt: "Use $jira-auto-fix to reproduce, diagnose, and fix JIRA-1234, then create a local commit after my approvals."
+  short_description: "Diagnose JIRA bugs with visual, decision-ready reviews"
+  default_prompt: "Use $jira-auto-fix to reproduce and diagnose JIRA-1234, summarize the review as a pyramid with a useful Mermaid diagram, then fix and create a local commit after my approvals."
