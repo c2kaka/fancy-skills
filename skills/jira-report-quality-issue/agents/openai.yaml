@@ -1,0 +1,6 @@
+interface:
+  display_name: "JIRA Quality Issue Reporter"
+  short_description: "Review coding work and file verified JIRA issues"
+  default_prompt: "Use $jira-report-quality-issue to review this coding delivery and prepare verified JIRA issue drafts."
+policy:
+  allow_implicit_invocation: false
