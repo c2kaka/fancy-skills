@@ -10,7 +10,7 @@ Install a skill with:
 npx skills add c2kaka/fancy-skills --path skills/<skill-name>
 ```
 
-Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `feature-intake`, `interview-prep-from-project`, `jira-auto-fix`, `jira-report-quality-issue`, `jira-update`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, `spec-to-executable-tickets`, or `write-weekly-report`.
+Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `feature-intake`, `interview-prep-from-project`, `jira-auto-fix`, `jira-report-quality-issue`, `jira-update`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, `spec-to-executable-tickets`, `verify-frontend-delivery`, or `write-weekly-report`.
 
 Then invoke in your agent terminal (or load the same skill name in your host's skill picker):
 
@@ -28,6 +28,7 @@ Then invoke in your agent terminal (or load the same skill name in your host's s
 /propagate-api-contract-changes # Carry backend contract changes through every affected frontend layer
 /run-local-fullstack-debug      # Start, integrate, and trace failures across a local full-stack system
 /spec-to-executable-tickets     # Convert product materials into human-owned specs, evidence-backed gaps, and dependency-ready tickets
+/verify-frontend-delivery       # Explicitly prepare a frontend product contract or independently verify a frontend change
 /write-weekly-report            # Generate a Chinese weekly report grouped by project themes from recent git commits
 ```
 
@@ -57,7 +58,39 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `propagate-api-contract-changes`: trace backend API and Schema changes through frontend clients, types, mappers, state, UI, fixtures, and tests, then verify the complete contract path
 - `run-local-fullstack-debug`: manually start and verify a repository's local stack, exercise a real end-to-end flow, and localize failures across browser, frontend, gateway, backend, and data dependencies
 - `spec-to-executable-tickets`: convert PRDs, prototypes, contracts, code, and runtime evidence into Delivery and Interaction Specs, human decision packets, proven implementation gaps, and executable Tickets; optionally hand approved Tickets to the dependency-aware executor for implementation and real Chrome acceptance
+- `verify-frontend-delivery`: explicitly prepare and freeze a source-fingerprinted frontend product contract, or independently audit a frontend diff with risk-required gates, evidence levels, baseline deltas, and deterministic PASS/FAIL/BLOCKED reports
 - `write-weekly-report`: generate a Chinese weekly report from recent git commits, grouped into 5–8 project themes with concise per-item details, defaulting to the `liushengpeng` / `shengpeng.liu` author identity
+
+## Verify Frontend Delivery
+
+Install this skill by itself with:
+
+```bash
+npx skills add c2kaka/fancy-skills --path skills/verify-frontend-delivery
+```
+
+It is explicit-only: ordinary frontend implementation or review requests do not trigger it.
+
+| Mode | Use it for | Completion boundary |
+|---|---|---|
+| `prepare` | Fingerprint PRDs, prototypes, contracts, repository identity, and the target diff; build the product contract and risk-required gates | Stop after the user approves a separately frozen contract; never start implementation |
+| `verify` | Audit a frozen contract with an independent fresh context and evidence-ranked regression gates | Generate deterministic `gate-report.json` and `gate-report.md`; never fix, commit, push, update JIRA, or approve waivers |
+| `status` | Read an existing report without rerunning gates | Return current blockers, source drift, evidence levels, and reusable checkpoints |
+
+Example prompts:
+
+```text
+Use $verify-frontend-delivery in prepare mode for this frontend change. The PRD is
+<prd-path>, the prototype is <prototype-path>, and the explicit base is <git-ref>.
+
+Use $verify-frontend-delivery in verify mode with frozen contract <contract-path>
+and change <base>..<head>. Preserve the product repository and write only local
+run artifacts outside it.
+
+Use $verify-frontend-delivery in status mode for <gate-report.json>.
+```
+
+The default local run root is `~/.local/state/verify-frontend-delivery/runs`. The JSON report is authoritative; its Markdown companion is generated from the same data. Fixture, synthetic UI, real backend, and real-page E2E evidence are distinct and cannot substitute for one another. The first rollout is local-only: the skill does not update CI or delete run artifacts automatically.
 
 ## Included Agents
 

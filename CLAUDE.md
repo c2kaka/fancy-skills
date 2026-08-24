@@ -27,6 +27,7 @@ Three conceptual planes work together:
 | `skills/propagate-api-contract-changes/` | Contract-propagation skill that traces backend API and Schema changes through frontend boundaries, consumers, fixtures, and verification. |
 | `skills/run-local-fullstack-debug/` | Manual-only local environment and cross-layer debugging skill for startup, readiness, real end-to-end flows, and evidence-backed fault localization. |
 | `skills/spec-to-executable-tickets/` | Manual-only specification convergence skill with Analysis and Delivery modes; turns multi-source product evidence into human-owned specs, evidence-backed gaps, and dependency-ready Tickets, including frontend interaction extraction and real Chrome acceptance. |
+| `skills/verify-frontend-delivery/` | Explicit-only frontend delivery gate with prepare/verify/status modes, source-fingerprinted contracts, risk-required regression layers, independent auditing, evidence classification, baseline deltas, and deterministic local reports. |
 | `skills/write-weekly-report/` | Read-only git-log skill that groups recent commits by project theme into a Chinese weekly report with title/detail items; defaults to the `liushengpeng` / `shengpeng.liu` author identity and explicit date ranges. |
 | `skills/*/agents/` | Thin YAML descriptors (`display_name`, `default_prompt`) for hosts that substitute `$<skill-name>` tokens. |
 | `agents/ticket-queue-executor.toml` | Codex custom Agent that executes eligible repository Tickets serially in dependency order and records verification evidence. |
@@ -37,6 +38,7 @@ Three conceptual planes work together:
 - **Skill identity**: Folder name under `skills/` SHOULD match `name` in `SKILL.md` frontmatter for predictable discovery.
 - **Description field**: Third-person, ends with explicit **“Use when …”** triggers—this is how agents choose the skill.
 - **Progressive disclosure**: Keep `SKILL.md` lean; move long methodology to `references/` and link.
+- **Explicit delivery gate**: `verify-frontend-delivery` has `allow_implicit_invocation: false`; do not infer it from ordinary frontend work or weaken its evidence levels to obtain PASS.
 - **No fictional APIs**: Do not document REST/OpenAPI for this repo unless an actual server is added.
 
 ## 5. How to run / use
@@ -51,6 +53,7 @@ Three conceptual planes work together:
 8. To query JIRA without changing code, configure `skills/my-jira-query/.env` from `.env.example` and invoke **`my-jira-query`** with an issue key.
 9. To install the custom Ticket executor, copy `agents/ticket-queue-executor.toml` into the Codex agents directory and register `[agents.ticket_queue_executor]` in the user configuration as shown in `README.md`.
 10. To draft a weekly report, invoke **`write-weekly-report`** with an explicit or relative time range; it reads the local git log, groups commits into 5–8 project themes (default author `liushengpeng` / `shengpeng.liu`), and prints a Chinese ordered list with title/detail pairs.
+11. To prepare or independently verify a frontend delivery, explicitly invoke **`verify-frontend-delivery`** in `prepare`, `verify`, or `status` mode. `prepare` freezes source and repository identity after user approval and stops before implementation. `verify` requires a frozen contract plus an independent fresh Auditor, writes deterministic JSON/Markdown reports outside the product repository, and never fixes code, commits, pushes, updates JIRA, approves waivers, or updates CI. `status` reads an existing report without rerunning gates. Do not promote fixture or synthetic UI evidence to real backend or real-page E2E acceptance.
 
 There is **nothing to `npm install` or `docker compose up`** in this repository today.
 

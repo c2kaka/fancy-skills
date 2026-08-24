@@ -1,0 +1,7 @@
+interface:
+  display_name: "Verify Frontend Delivery"
+  short_description: "Build product contracts and audit frontend regressions"
+  default_prompt: "Use $verify-frontend-delivery to prepare a product contract or independently verify the current frontend change."
+
+policy:
+  allow_implicit_invocation: false
