@@ -88,6 +88,8 @@ Preflight reads JIRA but never writes. It verifies deployment type, authenticate
 
 If duplicate candidates exist, inspect their evidence semantically. Add the exact returned `candidateDigest` and the decision to each issue's `duplicateReview`, then rerun preflight. Never automatically decide from summary similarity.
 
+The duplicate snapshot is semantic: its digest covers candidate key, summary, and status in stable order. Timestamp-only updates and result-order changes do not invalidate an approval; candidate additions, removals, summary changes, and status changes do.
+
 If preflight returns a blocker, resolve it and rerun. Do not bypass metadata, permissions, identity, duplicate, or screenshot failures.
 
 ### 5. Present one complete approval packet

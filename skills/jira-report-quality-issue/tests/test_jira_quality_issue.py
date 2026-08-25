@@ -383,6 +383,82 @@ class WorkflowTests(unittest.TestCase):
         self.assertFalse(preflight["ready"])
         self.assertEqual(preflight["blockers"][0]["code"], "duplicate_review_required")
 
+    def test_duplicate_review_survives_timestamp_and_order_only_changes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            screenshot = Path(directory) / "proof.png"
+            screenshot.write_bytes(png_bytes())
+            raw = draft(screenshot)
+            client = FakeClient(
+                candidates=[
+                    {
+                        "key": "TEST-9",
+                        "summary": "Possible duplicate",
+                        "status": "Open",
+                        "updated": "2026-08-25T10:00:00Z",
+                    },
+                    {
+                        "key": "TEST-10",
+                        "summary": "Another candidate",
+                        "status": "Open",
+                        "updated": "2026-08-25T09:00:00Z",
+                    },
+                ]
+            )
+            first = run_preflight(raw, self.config, client)
+            raw["issues"][0]["duplicateReview"] = {
+                "candidateDigest": first["candidateDigest"],
+                "decision": "no-duplicate",
+                "existingIssueKey": None,
+                "justification": "The candidates have different root causes.",
+            }
+            client.candidates = [
+                {
+                    "key": "TEST-10",
+                    "summary": "Another candidate",
+                    "status": "Open",
+                    "updated": "2026-08-25T11:00:00Z",
+                },
+                {
+                    "key": "TEST-9",
+                    "summary": "Possible duplicate",
+                    "status": "Open",
+                    "updated": "2026-08-25T12:00:00Z",
+                },
+            ]
+            second = run_preflight(raw, self.config, client)
+
+        self.assertEqual(first["candidateDigest"], second["candidateDigest"])
+        self.assertTrue(second["ready"])
+
+    def test_duplicate_review_invalidates_on_semantic_candidate_change(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            screenshot = Path(directory) / "proof.png"
+            screenshot.write_bytes(png_bytes())
+            raw = draft(screenshot)
+            client = FakeClient(
+                candidates=[
+                    {
+                        "key": "TEST-9",
+                        "summary": "Possible duplicate",
+                        "status": "Open",
+                        "updated": "2026-08-25T10:00:00Z",
+                    }
+                ]
+            )
+            first = run_preflight(raw, self.config, client)
+            raw["issues"][0]["duplicateReview"] = {
+                "candidateDigest": first["candidateDigest"],
+                "decision": "no-duplicate",
+                "existingIssueKey": None,
+                "justification": "The candidate has a different root cause.",
+            }
+            client.candidates[0]["status"] = "Closed"
+            second = run_preflight(raw, self.config, client)
+
+        self.assertNotEqual(first["candidateDigest"], second["candidateDigest"])
+        self.assertFalse(second["ready"])
+        self.assertEqual(second["blockers"][0]["code"], "duplicate_review_required")
+
     def test_confirmation_mismatch_exits_before_loading_blank_env(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             draft_path = Path(directory) / "draft.json"

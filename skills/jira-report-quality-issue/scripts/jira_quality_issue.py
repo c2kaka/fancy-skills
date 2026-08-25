@@ -81,15 +81,21 @@ def _current_identity(
 
 
 def _candidate_digest(candidates: list[dict[str, object]]) -> str:
-    normalized = [
-        {
-            "key": item.get("key"),
-            "summary": item.get("summary"),
-            "status": item.get("status"),
-            "updated": item.get("updated"),
-        }
-        for item in candidates
-    ]
+    normalized = sorted(
+        (
+            {
+                "key": item.get("key"),
+                "summary": item.get("summary"),
+                "status": item.get("status"),
+            }
+            for item in candidates
+        ),
+        key=lambda item: (
+            str(item.get("key") or ""),
+            str(item.get("summary") or ""),
+            str(item.get("status") or ""),
+        ),
+    )
     return sha256_json(normalized)
 
 

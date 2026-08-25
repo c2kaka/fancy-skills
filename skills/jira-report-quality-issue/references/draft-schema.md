@@ -107,6 +107,8 @@ The first preflight may return `duplicate_review_required` with a candidate list
 
 Rerun preflight after changing the decision. A changed candidate snapshot invalidates the review.
 
+Candidate snapshot identity is based on candidate key, summary, and status in stable order. Changes only to `updated` timestamps or search-result order do not change `candidateDigest`; additions, removals, summary changes, and status changes do.
+
 ## Approval fields
 
 Do not add an approval field before the user approves the complete preflight packet. After approval, add:
