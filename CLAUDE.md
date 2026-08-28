@@ -18,6 +18,7 @@ Three conceptual planes work together:
 |------|------|
 | `skills/analyze-ai-agent-codebase/` | Methodology skill for reading AI agent codebases; primary artifact is `SKILL.md`, with deferred templates under `references/`. |
 | `skills/bootstrap-ai-collab-infra/` | Meta-playbook skill that prescribes how to author `docs/*`, `CLAUDE.md`, and the read-only `docs-auto-sync` helper for other repositories. |
+| `skills/codex-local-saas-browser/` | Deterministic macOS workflow for opening CogDB-backed `saas-frontend` HTTPS at `localhost:3000` in the Codex in-app browser; bundles a pinned public CA certificate and scripts for trust, OIDC, port ownership, startup, and readiness checks. |
 | `skills/feature-intake/` | Frontend-only intake skill that turns an HTML prototype + backend API doc pair into a Feature Intake Spec, with a built-in 5-class gap scanner. Ships its own spec template, checklist, and real-case references. |
 | `skills/interview-prep-from-project/` | Mines an existing code project for resume highlights, interviewer-style questions, and reference answers, producing three Chinese Markdown documents. |
 | `skills/jira-auto-fix/` | Codex-native JIRA bug workflow with stable reproduction, evidence-backed diagnosis, a pyramid-structured review (`business reproduction chain → root cause → recommended solution`) and useful Mermaid visualization, approval gates, multimodal attachment inspection, regression testing, and local-commit-only delivery. |
@@ -54,6 +55,7 @@ Three conceptual planes work together:
 9. To install the custom Ticket executor, copy `agents/ticket-queue-executor.toml` into the Codex agents directory and register `[agents.ticket_queue_executor]` in the user configuration as shown in `README.md`.
 10. To draft a weekly report, invoke **`write-weekly-report`** with an explicit or relative time range; it reads the local git log, groups commits into 5–8 project themes (default author `liushengpeng` / `shengpeng.liu`), and prints a Chinese ordered list with title/detail pairs.
 11. To prepare or independently verify a frontend delivery, explicitly invoke **`verify-frontend-delivery`** in `prepare`, `verify`, or `status` mode. `prepare` freezes source and repository identity after user approval and stops before implementation. `verify` requires a frozen contract plus an independent fresh Auditor, writes deterministic JSON/Markdown reports outside the product repository, and never fixes code, commits, pushes, updates JIRA, approves waivers, or updates CI. `status` reads an existing report without rerunning gates. Do not promote fixture or synthetic UI evidence to real backend or real-page E2E acceptance.
+12. To prepare a local CogDB SaaS checkout for the Codex in-app browser, invoke **`codex-local-saas-browser`** with the absolute `saas-frontend` repository path. Run its read-only check first; certificate trust changes require explicit confirmation and a Codex restart.
 
 There is **nothing to `npm install` or `docker compose up`** in this repository today.
 

@@ -10,7 +10,7 @@ Install a skill with:
 npx skills add c2kaka/fancy-skills --path skills/<skill-name>
 ```
 
-Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `feature-intake`, `interview-prep-from-project`, `jira-auto-fix`, `jira-report-quality-issue`, `jira-update`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, `spec-to-executable-tickets`, `verify-frontend-delivery`, or `write-weekly-report`.
+Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `codex-local-saas-browser`, `feature-intake`, `interview-prep-from-project`, `jira-auto-fix`, `jira-report-quality-issue`, `jira-update`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, `spec-to-executable-tickets`, `verify-frontend-delivery`, or `write-weekly-report`.
 
 Then invoke in your agent terminal (or load the same skill name in your host's skill picker):
 
@@ -19,6 +19,7 @@ Then invoke in your agent terminal (or load the same skill name in your host's s
 /analyze-ai-agent-codebase      # Methodically read an unfamiliar AI-agent codebase
 /bootstrap-ai-collab-infra      # Scaffold layered docs, integration catalog, and CLAUDE.md for another repo
 /change-risk-review             # Review git changes for risk classification before commit
+/codex-local-saas-browser       # Prepare CogDB SaaS localhost:3000 for the Codex in-app browser
 /feature-intake                 # Reverse a single source of truth from HTML prototype + backend API docs, surfacing implicit business behavior as explicit human decisions
 /interview-prep-from-project    # Mine an existing project for resume highlights, interview questions, and reference answers as Markdown docs
 /jira-auto-fix                  # Diagnose with a pyramid/Mermaid review, then test, fix, and locally commit after approvals
@@ -49,6 +50,7 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `analyze-ai-agent-codebase`: analyze open-source AI agent repositories through layers, contracts, execution loops, tools, and trade-offs
 - `bootstrap-ai-collab-infra`: generate the layered-docs + API catalog + conceptual schema + `CLAUDE.md` + read-only `docs-auto-sync` playbook for arbitrary repositories
 - `change-risk-review`: review git changes for behavior, protocol, and architecture risk before commit, then generate a classified commit message after user confirmation
+- `codex-local-saas-browser`: deterministically prepare and verify CogDB-backed `saas-frontend` HTTPS at `localhost:3000` for the Codex in-app browser, with pinned public certificate trust, exact OIDC callback checks, worktree ownership detection, and safe browser handoff
 - `feature-intake`: reverse-engineer a Feature Intake Spec from an HTML prototype + backend API docs, scan for five classes of implicit-behavior gaps, and force every gap to an explicit human decision or TODO before implementation
 - `interview-prep-from-project`: mine an existing code project for resume highlights, interview questions, and reference answers, producing three Chinese Markdown documents
 - `jira-auto-fix`: stably reproduce and diagnose a JIRA bug, summarize the review top-down as a plain-language business example, root cause, and recommended solution with evidence-backed Mermaid diagrams when useful, require solution approval before edits, add a regression test, implement the fix, and stop after a locally approved commit

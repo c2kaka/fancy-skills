@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Local SaaS Browser"
+  short_description: "Open CogDB SaaS localhost safely in Codex"
+  default_prompt: "Use $codex-local-saas-browser to prepare and open my local SaaS page in the Codex in-app browser."
