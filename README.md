@@ -10,7 +10,7 @@ Install a skill with:
 npx skills add c2kaka/fancy-skills --path skills/<skill-name>
 ```
 
-Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `codex-local-saas-browser`, `feature-intake`, `interview-prep-from-project`, `jira-auto-fix`, `jira-report-quality-issue`, `jira-update`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, `spec-to-executable-tickets`, `verify-frontend-delivery`, or `write-weekly-report`.
+Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `codex-local-saas-browser`, `feature-intake`, `interview-prep-from-project`, `jira-auto-fix`, `jira-report-quality-issue`, `jira-update`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, `spec-to-executable-tickets`, `verify-frontend-delivery`, `video-insight-report`, or `write-weekly-report`.
 
 Then invoke in your agent terminal (or load the same skill name in your host's skill picker):
 
@@ -30,6 +30,7 @@ Then invoke in your agent terminal (or load the same skill name in your host's s
 /run-local-fullstack-debug      # Start, integrate, and trace failures across a local full-stack system
 /spec-to-executable-tickets     # Convert product materials into human-owned specs, evidence-backed gaps, and dependency-ready tickets
 /verify-frontend-delivery       # Explicitly prepare a frontend product contract or independently verify a frontend change
+/video-insight-report           # Turn one public YouTube/Bilibili video into an evidence-linked offline HTML report
 /write-weekly-report            # Generate a Chinese weekly report grouped by project themes from recent git commits
 ```
 
@@ -61,7 +62,26 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `run-local-fullstack-debug`: manually start and verify a repository's local stack, exercise a real end-to-end flow, and localize failures across browser, frontend, gateway, backend, and data dependencies
 - `spec-to-executable-tickets`: convert PRDs, prototypes, contracts, code, and runtime evidence into Delivery and Interaction Specs, human decision packets, proven implementation gaps, and executable Tickets; optionally hand approved Tickets to the dependency-aware executor for implementation and real Chrome acceptance
 - `verify-frontend-delivery`: explicitly prepare and freeze a source-fingerprinted frontend product contract, or independently audit a frontend diff with risk-required gates, evidence levels, baseline deltas, and deterministic PASS/FAIL/BLOCKED reports
+- `video-insight-report`: analyze one public YouTube or Bilibili video around the user's questions, use subtitles or explicitly prepared local MLX Whisper transcription, select timestamped real-frame evidence, and deterministically render an offline HTML report with a pyramid summary and first-principles critique
 - `write-weekly-report`: generate a Chinese weekly report from recent git commits, grouped into 5–8 project themes with concise per-item details, defaulting to the `liushengpeng` / `shengpeng.liu` author identity
+
+## Video Insight Report
+
+Install this skill by itself with:
+
+```bash
+npx skills add c2kaka/fancy-skills --path skills/video-insight-report
+```
+
+Example prompt:
+
+```text
+Use $video-insight-report to analyze https://www.youtube.com/watch?v=VIDEO_ID.
+I want to understand the author's core argument, the evidence behind it, and
+whether the conclusion still holds when rebuilt from first principles.
+```
+
+The minimum input is one public YouTube/Bilibili URL plus the user's questions. The skill prefers non-empty platform subtitles, falls back to explicitly prepared local MLX Whisper transcription for captionless videos, extracts real frames at evidence timestamps, and writes `report.json` plus an offline `report.html`. A first local-ASR model download, cloud transcription, authentication, or clearly high resource use remains an explicit confirmation boundary. `COMPLETE`, `INCOMPLETE`, `BLOCKED`, and `FAILED` are distinct outcomes; missing real frames cannot be reported as success.
 
 ## Verify Frontend Delivery
 

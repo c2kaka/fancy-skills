@@ -1,0 +1,4 @@
+interface:
+  display_name: "Video Insight Report"
+  short_description: "Build evidence-linked HTML reports from public videos"
+  default_prompt: "Use $video-insight-report to analyze this public video around my questions and generate an evidence-linked offline HTML report."
