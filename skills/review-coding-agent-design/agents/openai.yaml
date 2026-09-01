@@ -1,0 +1,6 @@
+interface:
+  display_name: "Coding Agent Design Review"
+  short_description: "Review agent designs, code, and complexity with evidence"
+  default_prompt: "Use $review-coding-agent-design to review this design and code for complexity, alignment, and evidence-backed risks."
+policy:
+  allow_implicit_invocation: true

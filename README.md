@@ -10,7 +10,7 @@ Install a skill with:
 npx skills add c2kaka/fancy-skills --path skills/<skill-name>
 ```
 
-Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `codex-local-saas-browser`, `feature-intake`, `interview-prep-from-project`, `jira-auto-fix`, `jira-report-quality-issue`, `jira-update`, `my-jira-query`, `propagate-api-contract-changes`, `run-local-fullstack-debug`, `spec-to-executable-tickets`, `verify-frontend-delivery`, `video-insight-report`, or `write-weekly-report`.
+Replace `<skill-name>` with a folder under `skills/`, for example `ai-agent-framework-design-guide`, `analyze-ai-agent-codebase`, `bootstrap-ai-collab-infra`, `change-risk-review`, `codex-local-saas-browser`, `feature-intake`, `interview-prep-from-project`, `jira-auto-fix`, `jira-report-quality-issue`, `jira-update`, `my-jira-query`, `propagate-api-contract-changes`, `review-coding-agent-design`, `run-local-fullstack-debug`, `spec-to-executable-tickets`, `verify-frontend-delivery`, `video-insight-report`, or `write-weekly-report`.
 
 Then invoke in your agent terminal (or load the same skill name in your host's skill picker):
 
@@ -27,6 +27,7 @@ Then invoke in your agent terminal (or load the same skill name in your host's s
 /jira-update                    # Preview and apply a completed WARP JIRA fix using the reporter as tester
 /my-jira-query                  # Query and summarize a JIRA issue using skill-local .env credentials
 /propagate-api-contract-changes # Carry backend contract changes through every affected frontend layer
+/review-coding-agent-design     # Review agent-produced design docs and code for complexity and alignment
 /run-local-fullstack-debug      # Start, integrate, and trace failures across a local full-stack system
 /spec-to-executable-tickets     # Convert product materials into human-owned specs, evidence-backed gaps, and dependency-ready tickets
 /verify-frontend-delivery       # Explicitly prepare a frontend product contract or independently verify a frontend change
@@ -59,6 +60,7 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `jira-update`: turn a completed repair handoff into a confirmed JIRA comment, tester assignment, and workflow transition, with read-only inspection, an approved WARP default path (`Start Process` → `Start Review` → `Start Test` → `TEST`), reporter-as-tester default, and explicit write approval
 - `my-jira-query`: query JIRA issue details through a read-only Python client configured by a Git-ignored, skill-local `.env` file
 - `propagate-api-contract-changes`: trace backend API and Schema changes through frontend clients, types, mappers, state, UI, fixtures, and tests, then verify the complete contract path
+- `review-coding-agent-design`: review coding-agent design documents together with code and verification evidence, trace design claims into implementation, and identify complexity, boundary, ownership, error-semantic, and agent-grounding failures without editing the target
 - `run-local-fullstack-debug`: manually start and verify a repository's local stack, exercise a real end-to-end flow, and localize failures across browser, frontend, gateway, backend, and data dependencies
 - `spec-to-executable-tickets`: convert PRDs, prototypes, contracts, code, and runtime evidence into Delivery and Interaction Specs, human decision packets, proven implementation gaps, and executable Tickets; optionally hand approved Tickets to the dependency-aware executor for implementation and real Chrome acceptance
 - `verify-frontend-delivery`: explicitly prepare and freeze a source-fingerprinted frontend product contract, or independently audit a frontend diff with risk-required gates, evidence levels, baseline deltas, and deterministic PASS/FAIL/BLOCKED reports
