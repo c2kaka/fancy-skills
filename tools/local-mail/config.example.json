@@ -1,0 +1,8 @@
+{
+  "host": "smtp.your-provider.example",
+  "port": 465,
+  "security": "ssl",
+  "username": "your-smtp-account",
+  "sender": "your-sender@example.com",
+  "keychain_service": "codex-task-mail"
+}

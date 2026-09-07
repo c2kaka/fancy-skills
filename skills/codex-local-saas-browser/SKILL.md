@@ -1,11 +1,13 @@
 ---
 name: codex-local-saas-browser
-description: Prepare and verify the saas-frontend HTTPS development server at localhost:3000 for access from the Codex in-app browser on macOS, including CogDB certificate trust, Vite certificate trust, OIDC redirect checks, deterministic startup, and browser handoff. Use when localhost SaaS pages fail with SSL, OAuth callback, wrong-worktree, or browser-interaction problems. Do not use for arbitrary local web apps or non-CogDB authentication.
+description: Manually invoked only when the user explicitly requests codex-local-saas-browser. Prepare and verify the saas-frontend HTTPS development server at localhost:3000 for the Codex in-app browser on macOS, including certificate trust, OIDC checks, worktree ownership, and browser handoff. Do not activate automatically for localhost, SSL, OAuth, or browser problems. Not for arbitrary local web apps or non-CogDB authentication.
 ---
 
 # Codex Local SaaS Browser
 
 Make `https://localhost:3000/saas...` reachable in the Codex in-app browser without weakening browser security or guessing which worktree owns the port.
+
+Use this workflow only when the user explicitly invokes `$codex-local-saas-browser` or asks to use this skill by name.
 
 ## Invariants
 
@@ -27,7 +29,7 @@ Resolve the repository path from the user's workspace; do not assume a checkout.
    scripts/check.sh --repo /absolute/path/to/saas-frontend --allow-stopped
    ```
 
-   Do not proceed past any `ERROR` line. `server=stopped` is allowed only before startup.
+   An `ERROR` blocks startup or acceptance steps that depend on that check passing; it does not block the authorized repairs in Failure routing. Perform only repairs already provided by this workflow and within the current task's scope, then rerun this preflight. Pause the affected branch when approval, user action, or a condition that cannot be safely repaired is required. `server=stopped` is allowed only before startup.
 
 2. If the `.env` OIDC values are wrong, preview the deterministic correction and apply it only when local configuration changes are in scope:
 
@@ -54,7 +56,7 @@ Resolve the repository path from the user's workspace; do not assume a checkout.
 
    If it reports `codex_restart_required=true`, stop and ask the user to restart Codex. Resume only after the user confirms the restart.
 
-5. Start the intended checkout with:
+5. Rerun the step 1 preflight after repairs and any required confirmed Codex restart. Require no remaining `ERROR` lines before starting the intended checkout with:
 
    ```bash
    scripts/start.sh --repo /absolute/path/to/saas-frontend
@@ -70,7 +72,7 @@ Resolve the repository path from the user's workspace; do not assume a checkout.
 
    Continue only when it returns `result=ready` and a `browser_url`.
 
-7. Use `browser:control-in-app-browser` and follow its instructions. Claim an already-open matching in-app tab when available; otherwise create one. Navigate to the exact `browser_url` from the probe. Do not substitute Chrome unless the user asks.
+7. Use the currently available Codex built-in in-app browser control capability and follow its tool instructions; do not require a particular legacy skill name. Reuse an already-open matching in-app tab when supported; otherwise create one. Navigate to the exact `browser_url` from the probe. If no in-app browser control capability is available, report that blocker and pause browser acceptance. Do not substitute Chrome unless the user asks.
 
 8. If CogDB authentication appears, use the supported browser flow and existing signed-in session. Do not inspect credentials or session storage. When credentials, OTP, or a CAPTCHA require user action, hand the browser back and resume after the user says it is ready.
 
@@ -82,10 +84,13 @@ Resolve the repository path from the user's workspace; do not assume a checkout.
 
 ## Failure routing
 
+After each repair, rerun the step 1 preflight and route any remaining errors. Missing trust does not prevent the temporary certificate-generation process in step 3; that process is a repair, not the normal server startup or browser acceptance.
+
 - `cogdb_trust=missing` or `vite_trust=missing`: run the trust step after confirmation, then restart Codex.
 - `vite_cert=missing`: generate it with `prepare-vite-cert.sh`; do not trust the combined private-key file directly.
 - `port_owner=other_worktree`: stop. Do not change the redirect to that worktree's port and do not kill it automatically.
-- `oidc_redirect=wrong`: normalize `.env`, restart the dev server, and separately confirm the OAuth client has the same exact callback.
+- `oidc_enabled=wrong`, `oidc_local_tls_override=wrong`, `oidc_issuer=wrong`, or `oidc_redirect=wrong`: preview and apply the step 2 correction only when local configuration changes are in scope. If a running server needs to reload configuration, ask the user to restart it; do not terminate the process occupying port 3000. For a wrong redirect, separately confirm the OAuth client has the same exact callback; changes to that client require separate authorization.
+- Errors without a safe repair provided here (such as an invalid existing certificate): report the failed check and pause the dependent branch for the required decision or user action. Do not delete certificates, broaden configuration changes, or bypass checks to make preflight pass.
 - Browser remains on `account.cogdb.idic`: inspect the visible OAuth error and registered callback. Do not invent a redirect or modify the OAuth client without separate authorization.
 - Browser shows an HTTPS interstitial after both fingerprints are trusted: do not bypass it; restart Codex and rerun `check.sh` plus `probe.sh`.
 - Page clicks create annotations: the server was not started through `start.sh` or Agentation was explicitly enabled. Restart through `start.sh`, or visibly turn off “Block page interactions” before continuing.

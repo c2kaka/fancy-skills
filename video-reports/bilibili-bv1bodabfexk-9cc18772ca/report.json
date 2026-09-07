@@ -1,0 +1,558 @@
+{
+  "chapters": [
+    {
+      "end_seconds": 108,
+      "start_seconds": 0,
+      "summary": "预告 AI 会降低低层代码生产成本，并提出高层设计能否被替代这一未决问题。",
+      "title": "开场：AI 与软件设计问题"
+    },
+    {
+      "end_seconds": 341,
+      "start_seconds": 108,
+      "summary": "Ousterhout 回顾 Berkeley、创业和 Stanford 经历，强调学术自由、真实软件构建与产业压力的差异。",
+      "title": "学术界与产业经历"
+    },
+    {
+      "end_seconds": 430,
+      "start_seconds": 341,
+      "summary": "CodeRabbit 与 Modal 的商业赞助段落，不作为分析证据。",
+      "title": "赞助内容"
+    },
+    {
+      "end_seconds": 711,
+      "start_seconds": 430,
+      "summary": "区分快速产出但留下维护负担的“战术龙卷风”与通过简洁设计创造高杠杆的优秀工程师。",
+      "title": "战术龙卷风与长期价值"
+    },
+    {
+      "end_seconds": 851,
+      "start_seconds": 711,
+      "summary": "AI 很可能继续改善低层代码生成；能否取代高层设计仍不确定，作者预测设计的相对重要性会上升。",
+      "title": "AI 对软件工程的影响"
+    },
+    {
+      "end_seconds": 1197,
+      "start_seconds": 851,
+      "summary": "把设计定义为分解问题；主张先消除偶然复杂性，再通过模块隐藏不可消除的复杂性。",
+      "title": "设计、分解与复杂性"
+    },
+    {
+      "end_seconds": 1598,
+      "start_seconds": 1197,
+      "summary": "以 Stanford 学生和 TK API 为例说明比较备选方案的价值，同时警告不要滑入分析瘫痪。",
+      "title": "设计两次与取舍"
+    },
+    {
+      "end_seconds": 1695,
+      "start_seconds": 1598,
+      "summary": "用接口复杂度与模块功能量的比例解释深度：简单接口应隐藏大量内聚功能和内部复杂性。",
+      "title": "深模块与浅模块"
+    },
+    {
+      "end_seconds": 2047,
+      "start_seconds": 1695,
+      "summary": "异常会把处理成本施加给调用者；应减少不必要的异常类型，但不能把真实网络或机器故障“定义掉”。",
+      "title": "错误处理与调用者视角"
+    },
+    {
+      "end_seconds": 2175,
+      "start_seconds": 2047,
+      "summary": "优秀设计者能在实现者与使用者视角间切换；沟通、预期和团队冲突常是工程难题的根源。",
+      "title": "同理心与软件中的人"
+    },
+    {
+      "end_seconds": 2542,
+      "start_seconds": 2175,
+      "summary": "讨论设计文档、多人评审及把正反论点全部写上白板再投票的决策方式，并给出目标一致这一适用条件。",
+      "title": "设计评审与白板共识"
+    },
+    {
+      "end_seconds": 2773,
+      "start_seconds": 2542,
+      "summary": "设计既需要少量前置假设，也要贯穿编码、测试和修复；未知领域必须通过实现反馈持续修订。",
+      "title": "贯穿生命周期的设计"
+    },
+    {
+      "end_seconds": 3347,
+      "start_seconds": 2773,
+      "summary": "课程采用实现、逐行评审、反馈和重做的循环，让学生在安全环境中通过错误学习设计原则。",
+      "title": "如何教授设计"
+    },
+    {
+      "end_seconds": 3663,
+      "start_seconds": 3347,
+      "summary": "批评把短方法和分解绝对化；Uber 微服务合并案例用于说明接口和依赖数量可能超过拆分收益。",
+      "title": "短方法、单一职责与微服务"
+    },
+    {
+      "end_seconds": 3908,
+      "start_seconds": 3663,
+      "summary": "肯定高覆盖单元测试，但担心逐测试驱动会把工作单元缩小到局部补丁，缺少对通用抽象和整体架构的思考。",
+      "title": "对测试驱动开发的批评"
+    },
+    {
+      "end_seconds": 4239,
+      "start_seconds": 3908,
+      "summary": "主张注释记录代码不能表达的接口契约、状态和非显然约束；AI 可辅助理解欠注释代码，但不能成为不写注释的借口。",
+      "title": "注释、接口与 AI 辅助理解"
+    },
+    {
+      "end_seconds": 4389,
+      "start_seconds": 4239,
+      "summary": "介绍 Homa 传输协议的 Linux 实现，以及内核社区反馈如何发现误解、复杂性并推动改进。",
+      "title": "Homa 与 Linux 内核评审"
+    },
+    {
+      "end_seconds": 4749,
+      "start_seconds": 4389,
+      "summary": "回顾第二版对通用性的强化和异常章节的风险；课堂允许多团队同题、互评和重做，形成产业中较难获得的比较学习。",
+      "title": "书籍迭代与课堂比较优势"
+    },
+    {
+      "end_seconds": 4883,
+      "start_seconds": 4749,
+      "summary": "作者邀请建设性反驳，希望提升开发者社区对软件设计的自觉、讨论与整体水平。",
+      "title": "结语：保持可批评与持续学习"
+    }
+  ],
+  "evidence": [
+    {
+      "claim": "John Ousterhout 认为，AI 承担更多低层编程后，软件设计会占开发者工作更大的比重。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 843.5,
+      "id": "ai-shifts-work-to-design",
+      "quote": "I think software design is going to become more and more important.",
+      "quote_kind": "transcript",
+      "rationale": "直接回答 AI 时代软件设计的重要性，是全片主论点。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/ai-shifts-work-to-design.png",
+        "sha256": "96d2e27da67a584bb593291969c724faf7ebd040f615c2b8c9de9a93dbfa827b",
+        "size": 871248,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "John Ousterhout",
+      "start_seconds": 818.4
+    },
+    {
+      "claim": "软件设计被定义为把大型复杂系统分解为可相对独立实现的较小单元。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 925.3,
+      "id": "design-is-decomposition",
+      "quote": "I think decomposition. That's the key thing that threads through everything we do in computer science.",
+      "quote_kind": "transcript",
+      "rationale": "给出设计的核心定义，并把分解定位为计算机科学的基础活动。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/design-is-decomposition.png",
+        "sha256": "8dbdb5b72fb1fd91c944425ef15d09fb525f1918da369a969a1218f6e4337820",
+        "size": 848274,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "John Ousterhout",
+      "start_seconds": 885.3
+    },
+    {
+      "claim": "管理复杂性的两种根本手段是消除不必要复杂性，以及用模块隐藏不可消除的复杂性。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 1175.7,
+      "id": "eliminate-or-hide-complexity",
+      "quote": "The second approach is where you use modular design where you basically try and hide the complexity.",
+      "quote_kind": "transcript",
+      "rationale": "建立后续深模块、错误处理和接口设计的共同因果基础。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/eliminate-or-hide-complexity.png",
+        "sha256": "7e914e75555c1a95a4400e40d431e201bca8fb0dc7f6cd01cc032391d003bc3a",
+        "size": 716610,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "John Ousterhout",
+      "start_seconds": 1140.1
+    },
+    {
+      "claim": "TK API 是“设计两次”带来更优方案的个人实践案例。",
+      "confidence": "medium",
+      "derived_image": null,
+      "end_seconds": 1385.5,
+      "id": "design-twice-tk-example",
+      "quote": "One of the things that made TK popular was the API for TK. It was just a very sweet, simple, powerful API.",
+      "quote_kind": "transcript",
+      "rationale": "这是作者为比较备选方案有效性提供的具体职业经历，但仍属于单案例证据。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/design-twice-tk-example.png",
+        "sha256": "6cc8606290967ca3102338795c604b49b6c4565dd9187b714306661a3ff433c7",
+        "size": 713900,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "John Ousterhout",
+      "start_seconds": 1335.6
+    },
+    {
+      "claim": "深模块通过简单接口隐藏大量功能和内部复杂性，以较低调用者认知负担换取高杠杆。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 1694.4,
+      "id": "deep-module-leverage",
+      "quote": "A deep module is what gives us leverage against complexity.",
+      "quote_kind": "transcript",
+      "rationale": "直接定义深模块的机制和收益，是视频软件设计哲学的中心证据。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/deep-module-leverage.png",
+        "sha256": "a4fc55b8027e6012a4cbab3f8bdd9dad576e481982c38bfc3a3195f92ab78f8e",
+        "size": 719949,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "John Ousterhout",
+      "start_seconds": 1639.3
+    },
+    {
+      "claim": "异常并非越多越好；每个向外暴露的异常都会把处理复杂性转移给调用者。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 1770.2,
+      "id": "exceptions-impose-complexity",
+      "quote": "Every exception you throw is imposing complexity on the users of your class.",
+      "quote_kind": "transcript",
+      "rationale": "把错误 API 与调用者成本直接联系起来，同时不否认不可避免的真实故障。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/exceptions-impose-complexity.png",
+        "sha256": "dd645681425a1f0429e2f502d465f30f7bddcb1a25382ac235b8503adb955c7b",
+        "size": 711791,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "John Ousterhout",
+      "start_seconds": 1707.2
+    },
+    {
+      "claim": "Stanford 课程中，学生在代码评审、反馈和重做后，第二个项目明显改善，是设计可训练的重复观察证据。",
+      "confidence": "medium",
+      "derived_image": null,
+      "end_seconds": 3122.4,
+      "id": "teaching-feedback-improves-design",
+      "quote": "The second projects are so much better.",
+      "quote_kind": "transcript",
+      "rationale": "这是跨多届课堂的重复观察，但视频未给出量化指标或对照组。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/teaching-feedback-improves-design.png",
+        "sha256": "5b904e3c3a1deba0a0400cc6312330d3e3c7d6443927a40a2d988ca3d8410c5f",
+        "size": 828716,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "John Ousterhout",
+      "start_seconds": 2938.9
+    },
+    {
+      "claim": "把短方法绝对化可能增加方法和接口数量，反而提高系统总体复杂性。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 3511.2,
+      "id": "short-methods-can-increase-interface-cost",
+      "quote": "The complexity of the interfaces ends up actually making the system more complicated than it was before.",
+      "quote_kind": "transcript",
+      "rationale": "以整体接口成本反驳单一局部指标，是深模块原则的边界应用。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/short-methods-can-increase-interface-cost.png",
+        "sha256": "4b1271b14d796e599399fb9d58a235539ccd69ac72bcc44b206619fa23f19665",
+        "size": 693814,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "John Ousterhout",
+      "start_seconds": 3384.1
+    },
+    {
+      "claim": "访谈者以 Uber 支付域从大量小型微服务重新合并为中型领域服务的经历，支持“过度分解会产生协调成本”。",
+      "confidence": "medium",
+      "derived_image": null,
+      "end_seconds": 3601.6,
+      "id": "uber-microservices-consolidation",
+      "quote": "We started to just pull them together and create midsize services that kind of had a domain responsibility.",
+      "quote_kind": "transcript",
+      "rationale": "这是对深模块与接口成本机制的产业案例佐证，但视频未提供指标或独立资料。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/uber-microservices-consolidation.png",
+        "sha256": "d099da60cee5e80e3530d61b0ad8883170f9b8b7847515a9e4826180a84b4226",
+        "size": 610999,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "访谈者",
+      "start_seconds": 3528.7
+    },
+    {
+      "claim": "作者反对把 TDD 作为设计中心，因为逐测试推进可能缺少对整体架构和通用抽象的审视。",
+      "confidence": "medium",
+      "derived_image": null,
+      "end_seconds": 3786.4,
+      "id": "tdd-local-optimization-risk",
+      "quote": "There's no point in the process where you're encouraged to step back and think about the overall task, the big picture.",
+      "quote_kind": "transcript",
+      "rationale": "清楚呈现作者的 TDD 批评，但该推论依赖对 TDD 实践方式的假设，不能视为普遍定论。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/tdd-local-optimization-risk.png",
+        "sha256": "2084acc635ac6f4853f8af843ac9cdc281749d34ab9218a3c6d8af0c0f66054e",
+        "size": 742054,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "John Ousterhout",
+      "start_seconds": 3685.4
+    },
+    {
+      "claim": "注释最有价值的地方是接口契约、类状态和非显然约束，而不是复述代码。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 4101.5,
+      "id": "comments-protect-interface-abstraction",
+      "quote": "I think where comments are most important is for interfaces.",
+      "quote_kind": "transcript",
+      "rationale": "说明注释如何维护信息隐藏，而非与可读代码二选一。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/comments-protect-interface-abstraction.png",
+        "sha256": "86008a3959d22d15213b476923106a1ac4e4762b3676b402b1db5de11db6650e",
+        "size": 714334,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "John Ousterhout",
+      "start_seconds": 4020.3
+    },
+    {
+      "claim": "Homa 进入 Linux 内核的评审反馈暴露误解和设计复杂性，并持续改善实现。",
+      "confidence": "medium",
+      "derived_image": null,
+      "end_seconds": 4388.2,
+      "id": "linux-review-improves-homa",
+      "quote": "HOMA is getting a lot better because of this.",
+      "quote_kind": "transcript",
+      "rationale": "提供当前工程实践中的评审反馈案例，支持多视角与迭代机制。",
+      "raw_image": {
+        "height": 720,
+        "mime_type": "image/png",
+        "path": "evidence/raw/linux-review-improves-homa.png",
+        "sha256": "94a47480923ab081e26d5af45bbb6a4a5fe9be0cb50502b124d0b525e82e4f23",
+        "size": 696544,
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "John Ousterhout",
+      "start_seconds": 4320.9
+    }
+  ],
+  "first_principles": {
+    "assumptions": [
+      "AI 对低层代码生成的能力和成本优势会持续改善，而且生成代码会真正进入生产系统。",
+      "在可预见范围内，AI 对高层目标、隐含约束和跨系统取舍的可靠性提升慢于其代码生成能力。",
+      "系统存在可识别的内聚边界，内部复杂性能够由明确所有者维护，并通过稳定契约向外提供价值。",
+      "调用者感知到的接口简单度与系统总成本大体相关；隐藏的运维、安全或性能成本不会无限积累。",
+      "TK、Stanford 课程、Uber 微服务和 Linux 评审等经验，至少在方向上可外推到其他非平凡软件项目。",
+      "参与设计评审的人目标大体一致，并有足够知识和心理安全提出反对意见。"
+    ],
+    "boundaries": [
+      "深模块不是“大模块永远更好”。独立伸缩、故障隔离、安全域、团队所有权和部署节奏可能要求更小边界；合并后若成为不可理解的“上帝模块”，收益会反转。",
+      "简单接口可能掩盖延迟、资源、数据一致性或失败恢复成本；缺少可观察性和明确失败语义时，隐藏复杂性只是把风险推迟。",
+      "“设计两次”在高成本、难回滚决策上回报高；对低风险原型无限比较会造成分析瘫痪。实现和实验本身也可以是获取设计信息的手段。",
+      "“把错误定义掉”只适用于通过语义重构消除不必要特殊情况；机器崩溃、网络分区、权限失败等真实风险必须检测、传播或恢复，不能忽略。",
+      "作者对 TDD 的批评只在实践被缩减为逐测试局部补丁时成立。团队完全可以先建立架构假设，再用 TDD 提供快速反馈和可执行契约。",
+      "短方法、微服务和单一职责都不是天然错误；问题在于边界数量及依赖成本超过独立性、隔离性和可演化性收益。",
+      "注释会过时，因而应记录意图、不变量、约束和契约，并由评审或工具维护；复述语法的注释没有净价值。",
+      "视频没有提供受控实验或量化对照，不能据此给具体实践下普遍因果结论。"
+    ],
+    "fundamentals": [
+      "人的工作记忆、注意力和跨团队沟通带宽有限；系统需要同时理解的概念越多，错误和变更成本通常越高。",
+      "每个公共接口、依赖方向、失败状态和部署边界都会增加协调表面积；边界不是免费的。",
+      "复杂性分为问题本身不可消除的内在复杂性，以及设计选择造成的偶然复杂性。前者只能局部化，后者应尽量删除。",
+      "抽象不会让复杂性凭空消失，而是把它集中到某个所有者和契约后面；只有边界稳定、语义完整且可观察时，这种转移才有净收益。",
+      "设计决策的可逆性和实验成本不同：便宜、可回滚的决定适合快速试验；跨接口、数据或组织边界的决定值得更多前置比较。",
+      "AI 提高的是某些任务的供给能力。只要需求澄清、约束选择、跨组件一致性和结果验证仍稀缺，这些设计活动就会成为相对瓶颈。"
+    ],
+    "implications": [
+      "评价设计时优先观察公共接口数量、依赖方向、变更传播范围、失败语义和调用者认知负担，而不是只看代码行数、方法长度或服务数量。",
+      "对不可逆或跨边界决策写出至少两个真正不同的方案、关键假设和失败模式；对可逆决策用小实验快速取得信息。",
+      "AI 编程流程应先给出不变量、模块边界、数据和失败契约，再生成实现；验收重点应放在跨组件一致性、反例和可观察性。",
+      "把测试视为设计反馈和契约证据，而不是唯一的设计生成机制；同时保留定期退后审视整体架构的节奏。",
+      "接口注释应解释意图、约束、单位、并发、生命周期和异常语义；实现内部只记录非显然原因和历史陷阱。",
+      "设计教育应包含真实实现、严格评审、比较他人方案和强制重做，让学习者把抽象原则与具体复杂性建立因果联系。"
+    ],
+    "mechanism": [
+      "AI 降低代码生产成本后，代码量和尝试次数可能增加；若接口、约束和验收没有同步加强，交互状态会更快膨胀，因此设计和验证的边际价值上升。",
+      "分解把一个超出个人认知容量的问题切成较少同时耦合的子问题；信息隐藏进一步限制每个参与者需要知道的细节。",
+      "深模块把相关状态、策略和失败语义放在同一边界内，以较小的公共契约提供较多功能，从而减少跨边界调用、重复知识和变更传播。",
+      "显式比较第二方案会打破对首个可行想法的锚定，迫使设计者暴露假设并在同一尺度上评估取舍。",
+      "评审引入独立认知样本，能发现作者已习惯而忽略的复杂性；反馈后的重做把抽象原则转化为可复用经验。",
+      "按调用者实际处理方式合并异常、记录接口契约、以抽象而非单个测试为工作单元，都是降低边界认知成本的具体手段。"
+    ],
+    "open_questions": [
+      "能否用变更传播、缺陷密度、理解时间或认知负荷，对深模块相对浅模块的收益做可重复量化？",
+      "当 AI 能同时读取仓库、运行实验并维护长期上下文时，高层设计中哪些任务仍由人类占据比较优势？",
+      "在不同可逆性和不确定性水平下，比较几个方案、投入多少前置设计时间才是最优？",
+      "如何检测“简单接口”背后积累的运维、安全和性能债务，而不是只测调用体验？",
+      "怎样区分帮助形成通用抽象的 TDD 与只为逐个示例打补丁的局部 TDD？",
+      "Stanford 课程观察若加入统一评分、盲评和对照组，效果量会有多大，能否跨组织复现？"
+    ],
+    "problem": "真正的问题不是“怎样更快地产生代码”，而是：在需求变化、状态组合、故障模式和多人协作不断扩大时，怎样让系统在整个生命周期内仍可被理解、修改和验证；当 AI 进一步降低代码生产成本后，怎样避免新增代码量反而放大整体复杂性。",
+    "rebuilt_conclusion": "从第一性原理看，视频的中心结论大体成立：有限认知和协调带宽决定了软件必须通过分解、稳定契约、信息隐藏和反馈循环管理复杂性；当 AI 让代码更便宜时，这些约束不会消失，反而可能因代码和交互增长而更突出。不过，应把“设计更重要”理解为设计、验证和约束选择的相对瓶颈上升，而不是断言 AI 永远不能参与设计。深模块与备选方案原则具有较高可信度；对 TDD、短方法、微服务的批评只在它们被绝对化并造成局部优化时成立，不能外推为全面否定。"
+  },
+  "generation": {
+    "created_at": "2026-08-31T02:48:02+00:00",
+    "tools": {
+      "acquisition": "agent-reach 1.5.0 / bili-cli 0.6.2 / OpenCLI 1.8.6",
+      "media": "ffmpeg 8.1.2 / ffprobe 8.1.2",
+      "renderer": "video-insight-report 0.1.0",
+      "transcription": "mlx-whisper 0.4.3, local only"
+    },
+    "updated_at": "2026-08-31T03:14:29+00:00"
+  },
+  "pipeline": {
+    "stages": {
+      "analysis": {
+        "diagnostic": "完成全片章节地图、主张与证据分离、反例和第一性原理重建。",
+        "status": "COMPLETE"
+      },
+      "captions": {
+        "diagnostic": "OpenCLI 与 bili-cli 均未产出可用公开时间轴字幕；未读取浏览器 Cookie，后续改用已授权本地 ASR。",
+        "status": "SKIPPED"
+      },
+      "frames": {
+        "count": 12,
+        "diagnostic": "全部候选帧从可播放的 720p 视频提取并逐张视觉核验；未使用封面、播放器截图或装饰图。",
+        "status": "COMPLETE",
+        "video_sha256": "a7287d34b62dbc7b8bbc3121d169e983622e522c93e3dde1f8816b10d5ec6c57"
+      },
+      "metadata": {
+        "adapter": "bili-cli",
+        "diagnostic": "公共元数据确认单一 Bilibili 视频，时长约 81 分 23 秒。",
+        "status": "COMPLETE"
+      },
+      "render": {
+        "status": "COMPLETE"
+      },
+      "transcription": {
+        "cloud_used": false,
+        "engine": "mlx-whisper",
+        "language": "en",
+        "model": "mlx-community/whisper-large-v3-turbo",
+        "segments": 3163,
+        "status": "COMPLETE"
+      },
+      "validation": {
+        "status": "COMPLETE"
+      }
+    }
+  },
+  "pyramid": {
+    "supports": [
+      {
+        "evidence_ids": [
+          "ai-shifts-work-to-design",
+          "design-is-decomposition"
+        ],
+        "summary": "Ousterhout 预计 AI 会先显著降低低层代码生产成本，而高层设计尚未被可靠替代；因此开发者将把更大比例的精力放在分解、抽象、取舍和验证上。他把设计定义为将复杂系统分解成可相对独立处理的单元。",
+        "title": "核心观点：代码生成变便宜，设计判断成为相对瓶颈"
+      },
+      {
+        "evidence_ids": [
+          "eliminate-or-hide-complexity",
+          "deep-module-leverage",
+          "exceptions-impose-complexity",
+          "short-methods-can-increase-interface-cost",
+          "uber-microservices-consolidation"
+        ],
+        "summary": "好的模块不是越小越好，而是以尽可能简单的稳定接口承载尽可能多的内聚功能。复杂性应先被消除，无法消除的部分再封装；异常、方法和服务边界都应按它们给调用者带来的总认知与协调成本评估。",
+        "title": "中心机制：减少接口面，把不可避免的复杂性局部化"
+      },
+      {
+        "evidence_ids": [
+          "design-twice-tk-example",
+          "teaching-feedback-improves-design",
+          "linux-review-improves-homa"
+        ],
+        "summary": "视频用 TK API、Stanford 课程和 Homa 内核评审说明：强迫自己产生第二方案、让不同视角审查设计、再据反馈重做，可以暴露首个方案的锚定偏差和隐藏复杂性。它们是有解释力的实践证据，但不是受控实验。",
+        "title": "改进机制：备选方案、评审、犯错与重做"
+      },
+      {
+        "evidence_ids": [
+          "ai-shifts-work-to-design",
+          "teaching-feedback-improves-design",
+          "uber-microservices-consolidation",
+          "linux-review-improves-homa"
+        ],
+        "summary": "最强部分来自有限认知、依赖表面积和变更传播成本这些可推导机制；案例提供一致方向的佐证。较弱部分是“AI 不会很快替代高层设计”、课程效果大小、Homa 性能和产业案例规模，因为视频没有给出对照数据或独立核验。",
+        "title": "证据强度：机制性论证强，经验外推中等，AI 预测仍待验证"
+      },
+      {
+        "evidence_ids": [
+          "short-methods-can-increase-interface-cost",
+          "tdd-local-optimization-risk",
+          "comments-protect-interface-abstraction"
+        ],
+        "summary": "作者对短方法和 TDD 的警告抓住了局部优化风险，但 TDD 本身并不逻辑必然排斥总体设计；测试、注释、模块大小都应服务于清晰契约、失败语义和可演化性，而不是成为单指标教条。",
+        "title": "方法论边界：不要把任何局部实践绝对化"
+      }
+    ],
+    "top": "结论总体成立但必须分层理解：以深模块、低接口成本和持续反馈来管理复杂性的原则有坚实机制基础；“AI 会让设计更重要”是合理但有条件的预测；对 TDD、短方法等实践的否定则只能成立于它们造成局部优化和过度分解时。"
+  },
+  "request": {
+    "cloud_transcription_authorized": false,
+    "depth": "deep",
+    "external_fact_check": false,
+    "output_language": "zh-CN",
+    "questions": [
+      "作者的核心观点是什么？",
+      "作者使用了哪些证据？",
+      "从第一性原理重新分析后，结论是否成立？"
+    ],
+    "retain_cache": false
+  },
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "source": {
+    "creator": "理想主义花朵咖啡",
+    "duration_seconds": 4883,
+    "language": "en",
+    "platform": "bilibili",
+    "title": "[中字]AI时代的软件设计哲学：John Ousterhout谈深度模块、复杂性与工程取舍(The Philosophy of Software Design)",
+    "url": "https://www.bilibili.com/video/BV1BodaBfEXk",
+    "video_id": "BV1BodaBfEXk"
+  },
+  "status": "INCOMPLETE",
+  "uncertainties": [
+    "公开视频没有提供可用字幕轨；报告使用本机 mlx-community/whisper-large-v3-turbo 转录英语音轨。核心引用所在片段的 ASR 置信信号良好，但专有名词和长句仍可能有少量识别误差。",
+    "下载的视频文件没有烧录中文字幕。所有证据帧均已逐张确认来自正确发言时段，主要证明人物与时间位置；论点文字依据来自带时间戳的本地转录，而非画面 OCR。",
+    "本报告没有执行外部事实核查。视频中的 Homa“比 TCP 快 10 至 100 倍”、Uber 服务数量、课程唯一性、TK 设计成本占比等陈述未被独立验证，也未被作为第一性原理结论的必要前提。",
+    "大部分证据属于资深专家的职业经历、访谈者案例和教学观察；它们支持机制解释，却不能替代随机对照或跨组织量化研究。",
+    "AI 是否会替代高层设计是作者明确承认不确定的预测。报告只判断其因果机制是否合理，不把它当作已经发生的事实。",
+    "TDD、短方法、单一职责和微服务有多种实践形态；视频主要批评其极端或教条化版本，不能据此判断所有采用这些实践的团队。",
+    "实际版式视觉验收受当前环境限制：应用内浏览器安全策略禁止打开本地 file URL，macOS Quick Look 在 60 秒内未生成预览。HTML 已通过结构、图片哈希和离线资源校验，并静态确认包含 820px/520px 响应式规则与打印样式，但桌面、窄屏和打印的实际渲染未能目视通过。"
+  ]
+}

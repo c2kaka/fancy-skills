@@ -1,0 +1,539 @@
+{
+  "chapters": [
+    {
+      "end_seconds": 287,
+      "start_seconds": 0,
+      "summary": "从 ChatGPT 时代的单条 Prompt 出发，展示 System Prompt、AGENTS.md、Skills、工具调用与环境信息共同组成 Agent 上下文，并以 next-token prediction 解释其影响。",
+      "title": "提示词为何应被理解为上下文工程"
+    },
+    {
+      "end_seconds": 673,
+      "start_seconds": 287,
+      "summary": "强调立即提问、追问和反向讲解，并现场让 Agent 检视自身上下文，把理解过程变成可互动、可纠错的循环。",
+      "title": "AI 作为耐心教师与费曼学习伙伴"
+    },
+    {
+      "end_seconds": 1133,
+      "start_seconds": 673,
+      "summary": "以 Codex 命令风险判定为例讨论沙箱与审批，并演示阅读实现、修改提示词和观察行为变化。",
+      "title": "从权限确认到代码考古：用实验建立证据"
+    },
+    {
+      "end_seconds": 1524,
+      "start_seconds": 1133,
+      "summary": "把模糊意图导致的漂移映射到规格缺口，提出写清目标、技术约束和正确性标准；越能机器验证，Agent 越能反复迭代。",
+      "title": "Intent—Spec—Implementation 与可验证验收"
+    },
+    {
+      "end_seconds": 1989,
+      "start_seconds": 1524,
+      "summary": "用个人主页与生成式设计对比说明模型默认品位会收敛到常见模式；人仍需积累设计经验、多样性和领域判断。",
+      "title": "One-shot 作品、AI 味与人类品位"
+    },
+    {
+      "end_seconds": 2680,
+      "start_seconds": 1989,
+      "summary": "以有限状态机、纸笔和图灵机类比推理痕迹，再用形式约束任务展示模型如何通过输出、检查与修正扩大能力。",
+      "title": "指令遵循、思维链与 test-time scaling"
+    },
+    {
+      "end_seconds": 3299,
+      "start_seconds": 2680,
+      "summary": "区分可见 verifier 与审美、教学节奏等不可见标准；说明规则越多越会争夺注意力，旧式角色模板和无限堆叠 Skills 可能适得其反。",
+      "title": "Verifier 的力量与上下文污染"
+    },
+    {
+      "end_seconds": 4520,
+      "start_seconds": 3299,
+      "summary": "展示直接总结会顺从作者叙事，提出先站在人类已有知识边界上梳理相关工作、已解决范围和增量贡献，再结合学习者基础逐步推理。",
+      "title": "如何让 AI 批判性阅读论文"
+    },
+    {
+      "end_seconds": 5032,
+      "start_seconds": 4520,
+      "summary": "解释开放式长周期任务为何不能一步完成，并提出成熟高质量代码库有时比从零小项目更能以既有模式约束模型。",
+      "title": "Long Horizon 与 Greenfield 悖论"
+    },
+    {
+      "end_seconds": 5532,
+      "start_seconds": 5032,
+      "summary": "重申领域知识、运行监控和 verifier 设计的重要性；用“证明某方法有效”展示 reward hacking，再讨论人在未知问题上投入精力。",
+      "title": "没有超能力 AI：研究失败与人机分工"
+    },
+    {
+      "end_seconds": 5906,
+      "start_seconds": 5532,
+      "summary": "建议通过调研、枚举、分区和 sub-agent 检查实现算力换智力；最后推演计算资源集中可能造成的社会鸿沟。",
+      "title": "把开放搜索拆开，以及算力集中的风险"
+    }
+  ],
+  "evidence": [
+    {
+      "claim": "课程将提示词工程重新定义为覆盖 System Prompt、项目指令、工具与历史记录的上下文工程。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 223.0,
+      "id": "context-not-just-user-prompt",
+      "quote": "当我们说优化提示词，或者说提示词工程的时候，我们实际上表达的是一个叫上下文工程。",
+      "quote_kind": "transcript",
+      "rationale": "课件标题为“从提示词工程到上下文工程”，并列出 token 来源、顺序和作用域。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/context-not-just-user-prompt.png",
+        "sha256": "d41488bf848cd189a0bbf18be71a14e2322fb65279e3377fa6872796d076dc63",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 198.0
+    },
+    {
+      "claim": "明确且可由机器验证的任务，允许 Agent 反复迭代直至达标。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 1305.0,
+      "id": "verifiable-task-loop",
+      "quote": "如果你的任务是明确可以验证的，尤其是机器可以验证……Agent 就可以不计代价地一轮一轮、一次一次地尝试。",
+      "quote_kind": "transcript",
+      "rationale": "课件写出“可验证，才不会提前交卷”和“把愿望改写成验收条件”。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/verifiable-task-loop.png",
+        "sha256": "ab5f5a40689fd5a708f2517c1a1dc13a5a0b2968ca1d1f7e2f5ada9a1379b64e",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 1287.0
+    },
+    {
+      "claim": "好提示词应把目标、实现约束与成功标准写成可执行规格。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 1479.0,
+      "id": "prompt-as-specification",
+      "quote": "你写清楚你的 prompt，所有的东西都写清楚：我要什么东西，它用什么东西实现，怎么样才算正确。",
+      "quote_kind": "transcript",
+      "rationale": "课件 Rule of Thumb 要求写清指令、承担不明确的后果，并要求模型明确完成或失败。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/prompt-as-specification.png",
+        "sha256": "4093dc32499ef300cdc372f95db651a535afb870b7ab4b62383229cbaa3e789c",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 1467.0
+    },
+    {
+      "claim": "模型能力足够强时，提示词质量的主要杠杆是清晰的 verifier。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 2705.0,
+      "id": "verifier-is-central",
+      "quote": "写 prompt 最重要就是那个 verifier。今天模型的能力已经非常强了，如果能够给模型一个非常明确的 verifier……",
+      "quote_kind": "transcript",
+      "rationale": "课件对比“Verifier 看得见的”和“Verifier 看不见的”，并警告通过检查不等于审美良好。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/verifier-is-central.png",
+        "sha256": "3183794ef4816bc9b95978e2a906e88cfdc75689dc6ffa1b02f76a6d05f7bc5c",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 2680.0
+    },
+    {
+      "claim": "更长的上下文并不等于更可靠；指令会竞争有限的注意力。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 3056.0,
+      "id": "attention-is-scarce",
+      "quote": "你的指令越多，给模型的压力也越大；上下文是一种会抢夺注意力的资源。",
+      "quote_kind": "transcript",
+      "rationale": "课件标题直接写“上下文也是争用资源”，并用规则堆叠说明副作用。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/attention-is-scarce.png",
+        "sha256": "3cf401fc3f09cfdd325674b91f534b01be72b5e7b8b37c5e972b8e48d38e1ff3",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 3036.0
+    },
+    {
+      "claim": "直接让模型总结逻辑自洽的论文，容易让上下文把模型拉入作者叙事。",
+      "confidence": "medium",
+      "derived_image": null,
+      "end_seconds": 3445.0,
+      "id": "coherent-source-bias",
+      "quote": "论文……是一个非常逻辑自洽的东西，所以它在上下文里面的注意力污染是极强的。",
+      "quote_kind": "transcript",
+      "rationale": "画面证实讲者在终端中让 Agent 处理 paper.pdf；偏置机制未做外部对照实验，故为中等置信度。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/coherent-source-bias.png",
+        "sha256": "4f6953c814d363dc76f469f9b58d5df58e2d4a5a517408f9add89de20eba65c6",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 3394.0
+    },
+    {
+      "claim": "批判性阅读应先建立人类已有知识、已解决边界与待增量问题的共同基线。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 3723.0,
+      "id": "ground-on-human-knowledge",
+      "quote": "我们站在人类已知的知识边界看这个问题……相关的已经解决的东西是什么，解决到什么程度，然后这个工作试图解决哪些不一样的增量问题。",
+      "quote_kind": "transcript",
+      "rationale": "终端画面可见“站在人类已知的知识边界上看这个问题”等提示。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/ground-on-human-knowledge.png",
+        "sha256": "2cff96f7e87646b3860bbb7664091b29ea7c3c41182bcf49609a5e2f2556d84c",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 3673.0
+    },
+    {
+      "claim": "目标、规格与实现都不确定的长周期任务，不应要求模型一步交付最终实现。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 4599.0,
+      "id": "long-horizon-needs-decomposition",
+      "quote": "你的 specification 和 implementation 其实都不太清楚……你就不应该让 AI 一下子向后做。",
+      "quote_kind": "transcript",
+      "rationale": "课件说明 Long-Horizon 不只是快速交付，而是过程控制与未知处理。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/long-horizon-needs-decomposition.png",
+        "sha256": "ab45e959a2d37aa14fcf219cc675842ecb8203e1e6a3fd24628668f83772264f",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 4552.0
+    },
+    {
+      "claim": "高质量、长期维护的代码库能作为正向上下文，让模型复用既有模式和约束。",
+      "confidence": "medium",
+      "derived_image": null,
+      "end_seconds": 4779.0,
+      "id": "quality-context-teaches-patterns",
+      "quote": "如果是一个由人类维护的特别高质量的代码，这个上下文会迅速地看到里面那些好的东西，它会照着写。",
+      "quote_kind": "transcript",
+      "rationale": "课件提出“大型系统，反而更容易？”并列出 in-context learning 既有 best practice；属于经验性主张。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/quality-context-teaches-patterns.png",
+        "sha256": "bc79eb52fc50490173cb7522d15fb4f40da1f6d455a3587d6d08bfb75286e575",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 4743.0
+    },
+    {
+      "claim": "课程并未主张 AI 取代基础知识；人仍需理解领域与上下文，才能给出方向、监控运行和设计 verifier。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 5083.0,
+      "id": "domain-knowledge-still-required",
+      "quote": "你还是得学处理器、操作系统、编译器、数据库……怎么样给 AI 好的、什么叫好的 verifier。",
+      "quote_kind": "transcript",
+      "rationale": "课件“没有超能力 AI”明确写出仍需有概念、学习知识体系与领域模型。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/domain-knowledge-still-required.png",
+        "sha256": "26038308804334dfb65d9a49c669621060a13cc6119c8179270d909852470ef1",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 5032.0
+    },
+    {
+      "claim": "把开放研究写成“证明方法有效”会诱导模型优化代理指标，制造看似支持的微型 benchmark。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 5283.0,
+      "id": "research-reward-hacking",
+      "quote": "模型成了一个 reward hacker……我想证明这个 A 方法是有用的……它就构造了很多小的 benchmark。",
+      "quote_kind": "transcript",
+      "rationale": "课件标题为“Research Failure：Token 花完了，知识没有增加”，并指出 Agent 会错误补全证据。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/research-reward-hacking.png",
+        "sha256": "ec0b3136a68552d1d3c5f4d14f6474bade6446afcd2b2fb8ea44a1a6e159a363",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 5223.0
+    },
+    {
+      "claim": "人应把有限注意力投向未知、判断与领域注入，把路径已知且可验收的执行交给 AI。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 5466.0,
+      "id": "human-effort-on-unknowns",
+      "quote": "有一个东西不知道，你想要把它弄知道……剩下这件事情你知道应该怎么干了，AI 能把它干好，你就放手让它干。",
+      "quote_kind": "transcript",
+      "rationale": "课件“少干预，反而做得更多”区分单任务 latency 与全天 throughput。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/human-effort-on-unknowns.png",
+        "sha256": "36c7727251f8795307575074b7a87df084bef79050be9fe5ce937a1b81ab7aff",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 5381.0
+    },
+    {
+      "claim": "开放问题可通过系统调研、枚举和分区，把大搜索空间转化为多个可验证子任务，以算力换取更广搜索。",
+      "confidence": "high",
+      "derived_image": null,
+      "end_seconds": 5805.0,
+      "id": "search-space-to-verifiable-units",
+      "quote": "如果你可以把这个空间分割成很多个 disjoint 的部分……每一个部分就可以变成一个有 verifier 的、更明确的东西。",
+      "quote_kind": "transcript",
+      "rationale": "课件“算力换智力”把灵感改写为搜索：定义空间、枚举、sub-agent 检查与校验。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/search-space-to-verifiable-units.png",
+        "sha256": "064cfef69f809b76e17bf8cee144c6e5f2d2d09dd7d0d8bc8c0a050b1f749e79",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 5722.0
+    },
+    {
+      "claim": "若开放问题可持续以算力换智力，计算资源集中可能转化为不可跨越的认知与权力鸿沟。",
+      "confidence": "medium",
+      "derived_image": null,
+      "end_seconds": 5905.0,
+      "id": "compute-concentration-risk",
+      "quote": "有一类人可以获得无限的计算资源，他就有无限的智力……我们可能需要思考怎么样防止这件事情到来。",
+      "quote_kind": "transcript",
+      "rationale": "课件“墙内的超人”呈现算力作为生产资料的推演；这是前瞻性担忧而非已证实因果结论。",
+      "raw_image": {
+        "height": 410,
+        "mime_type": "image/png",
+        "path": "evidence/raw/compute-concentration-risk.png",
+        "sha256": "961a5d74a90a58e8b9e0dac6af7ef0ea87ad8e07010df19fccc517d37943cd63",
+        "width": 1280
+      },
+      "source_kind": "combined",
+      "speaker": "讲者",
+      "start_seconds": 5848.0
+    }
+  ],
+  "first_principles": {
+    "assumptions": [
+      "课程假设当前前沿模型具备较强的指令遵循、工具使用、代码搜索和多步自纠能力；这会随模型、产品和配置变化。",
+      "课程多次假设 verifier 与真实目标一致，但测试覆盖率、benchmark 和人工评分都可能只是可被投机的代理指标。",
+      "“成熟代码库会教会模型好模式”隐含代码库整体质量高、相关实现可检索且历史折衷仍适用于当前需求。",
+      "把 AI 对齐到使用者知识边界，假设使用者能够准确表达自身基础，并有能力发现模型遗漏的关键前提。",
+      "“算力换智力”假设任务可被有效分区、并行结果可独立校验且整合成本没有吞噬收益。"
+    ],
+    "boundaries": [
+      "主观设计、共情式教学、研究新颖性和社会价值没有单一可执行 verifier；把复杂价值压成分数会制造新的偏差。",
+      "课程中的现场演示和个人经验具有启发性，但不是控制实验，不能独立证明某模型代际、某代码库规模或某提示方式普遍更优。",
+      "长上下文中的中部遗忘、压缩、工具输出噪声和相互冲突规则，会让“指令写过了”与“模型稳定遵循”产生差距。",
+      "开放研究若被改写成“证明预设观点”，模型可能通过微型 benchmark、选择性证据或表面完整性优化错误目标。",
+      "可逆、可恢复、可验收的执行适合减少人工盯守；涉及删除、权限、资金、隐私、外部发布等不可逆动作仍需独立安全边界。",
+      "替代方案不是完全不用 AI，而是缩小任务、补充领域知识、建立多源证据、设置反证步骤，或在人无法定义合格 verifier 时保留人工决策。"
+    ],
+    "fundamentals": [
+      "模型不能直接读取人的意图，只能依据当下可见的序列化上下文生成下一步；没有进入上下文的约束等于不存在。",
+      "上下文窗口有长度，但有效注意力仍是稀缺资源；加入更多规则、资料和示例会改变竞争关系，不保证单调提升结果。",
+      "搜索与验证是两种不同难度的活动。可靠、快速、接近真实目标的 verifier 能把一次生成变成可纠错的闭环。",
+      "测试、类型、构建、静态检查和可复现运行通常比“看起来不错”提供更强反馈；审美、教学、研究价值等目标缺少同等廉价的信号。",
+      "高质量代码、文档和领域知识本身就是上下文中的约束；模型会复用它们，也会复用低质量模式和错误叙事。",
+      "人类时间、模型上下文、计算预算和风险承受能力都是有限资源，必须按问题的不确定性和可验证性分配。"
+    ],
+    "implications": [
+      "学习者不应停止学操作系统、编译器、数据库或设计；学习目标应升级为能建立领域模型、提出好问题、设计验收并审查证据。",
+      "团队应把高价值知识沉淀为可追溯的规格、测试、ADR、示例与失败记录，而不是无限增长、互相冲突的通用提示词。",
+      "审阅 AI 产出时，先检查目标和 verifier 是否正确，再检查实现；否则很容易高质量地完成错误任务。",
+      "批判性阅读需要建立外部知识基线、竞争解释和反例，避免单一来源控制整个上下文。",
+      "长周期任务的单位应从“一次会话”改为可恢复的探索批次：有预算、证据、决策点、停止条件和独立验收。",
+      "组织和政策层面需要关注计算资源、模型访问和验证能力的不均等，而不仅是单次模型输出是否更聪明。"
+    ],
+    "mechanism": [
+      "先识别真实意图、非目标、风险和成功条件，不把愿望直接当任务。",
+      "把意图展开为规格：输入输出、技术边界、资源、失败语义、验收方式和停止条件。",
+      "只装载与当前决策相关的上下文，并明确来源层级；资料提供事实，规则约束行为，示例展示品位。",
+      "为每个可分解步骤选择尽量贴近真实目标的 verifier，同时保留 held-out 检查、独立复核或反例搜索来约束 reward hacking。",
+      "让 Agent 计划、执行、观察、比较、修正；当任务进入未知、价值冲突或不可逆风险时，由人重新定义问题，而不是继续加 token。",
+      "对开放空间先调研和枚举，再分区并行探索，最后通过统一标准综合比较，而不是接受模型首先想到的可行解。"
+    ],
+    "open_questions": [
+      "如何定量测量特定规则、文档或示例对上下文注意力的正负边际贡献？",
+      "如何证明 verifier 接近真实目标，而不是一个更容易被模型优化的代理指标？",
+      "多 Agent 并行搜索何时增加覆盖率，何时只是复制同一种模型偏见？",
+      "怎样把优秀代码库的设计原则提炼成不冲突、可版本化且不会过度污染上下文的知识资产？",
+      "对研究价值、审美和教学效果这类软目标，怎样组合人类评审、对抗性检查与长期结果，形成更可靠反馈？",
+      "如果算力持续转化为更强的搜索与决策能力，教育、科研和公共基础设施应如何保障可获得性与问责？"
+    ],
+    "problem": "真正的问题不是怎样写一句听起来专业的 Prompt，而是怎样把人脑中模糊、隐含且可能变化的意图，转换成模型可见、可执行、可校验的工作环境，同时防止模型因错误目标、代理指标、上下文偏置或急于交付而偏离真实价值。",
+    "rebuilt_conclusion": "从第一性原理看，提示词工程应被重建为“受反馈约束的上下文与搜索系统设计”：Prompt 只是入口；规格决定搜索方向，相关上下文提供事实和范式，verifier 提供反馈，分解与预算控制搜索规模，人类则负责真实目标、领域判断、风险边界和开放价值。模板化咒语的价值会随模型升级快速衰减，而这套控制结构更可迁移。"
+  },
+  "generation": {
+    "created_at": "2026-09-01T13:19:32+00:00",
+    "tools": {
+      "agent-reach": "1.5.0",
+      "bili-cli": "0.6.2",
+      "ffmpeg": "8.1.2",
+      "mlx-whisper": "0.4.3",
+      "opencli": "1.8.6"
+    },
+    "updated_at": "2026-09-01T13:44:13Z"
+  },
+  "pipeline": {
+    "stages": {
+      "analysis": {
+        "diagnostic": "完成全片章节地图、金字塔总结、证据晋升、主张与推理分离、第一性原理重建。",
+        "status": "COMPLETE"
+      },
+      "captions": {
+        "diagnostic": "OpenCLI 未返回可用时间轴；bili-cli 字幕接口要求 sessdata。未读取 Cookie 或登录。",
+        "status": "SKIPPED"
+      },
+      "frames": {
+        "count": 14,
+        "path": "frame-evidence.json",
+        "status": "COMPLETE",
+        "video_sha256": "a20cbac6a09efab0e113da5b607c05c06b32b519aa7725a348e9ee730c2923e8",
+        "visual_inspection": "PASSED"
+      },
+      "metadata": {
+        "diagnostic": "公开视频元数据由 bili-cli 获取并校验为单视频。",
+        "path": "acquisition/source.json",
+        "status": "COMPLETE"
+      },
+      "render": {
+        "status": "COMPLETE"
+      },
+      "transcription": {
+        "cloud_used": false,
+        "engine": "mlx-whisper",
+        "model": "mlx-community/whisper-large-v3-turbo",
+        "path": "transcript.normalized.json",
+        "segments": 3798,
+        "status": "COMPLETE"
+      },
+      "validation": {
+        "diagnostic": "结构、资源哈希和离线 HTML 校验通过；所需桌面、窄屏与打印视觉检查被内置浏览器 file:// URL 安全策略阻止。",
+        "status": "BLOCKED"
+      }
+    }
+  },
+  "pyramid": {
+    "supports": [
+      {
+        "evidence_ids": [
+          "context-not-just-user-prompt",
+          "prompt-as-specification"
+        ],
+        "summary": "模型看到的不是用户最后一句话，而是 System Prompt、项目规则、工具定义、历史记录、代码与资料组成的线性上下文；因此工程对象是整个信息环境。",
+        "title": "从提示词到上下文工程"
+      },
+      {
+        "evidence_ids": [
+          "verifiable-task-loop",
+          "verifier-is-central"
+        ],
+        "summary": "把目标、实现约束和成功条件写清，并尽量让验收可由机器执行，模型才有机会通过计划、尝试、检查和修正持续逼近目标。",
+        "title": "规格与 verifier 构成核心反馈环"
+      },
+      {
+        "evidence_ids": [
+          "attention-is-scarce",
+          "coherent-source-bias",
+          "ground-on-human-knowledge"
+        ],
+        "summary": "规则、资料和示例会竞争注意力；逻辑自洽的单一来源甚至会把模型拉入其叙事。有效做法是保持上下文相关、建立知识基线并显式寻找反证。",
+        "title": "上下文既是能力，也是稀缺资源"
+      },
+      {
+        "evidence_ids": [
+          "long-horizon-needs-decomposition",
+          "research-reward-hacking",
+          "search-space-to-verifiable-units"
+        ],
+        "summary": "当目标、规格和实现都不确定时，直接要求最终答案容易得到仓促方案或 reward hacking；应先调研、枚举、分区，再把每一部分变为更明确、可验证的子任务。",
+        "title": "长周期开放任务必须被改造成搜索过程"
+      },
+      {
+        "evidence_ids": [
+          "quality-context-teaches-patterns",
+          "domain-knowledge-still-required",
+          "human-effort-on-unknowns"
+        ],
+        "summary": "成熟代码库可以向模型展示一致的工程模式，但人仍要理解领域、识别未知、选择方向、设计 verifier，并把精力放在判断与学习上。",
+        "title": "人类知识与品位没有被外包"
+      },
+      {
+        "evidence_ids": [
+          "compute-concentration-risk",
+          "research-reward-hacking"
+        ],
+        "summary": "主观质量、研究新颖性和社会价值没有廉价 verifier；讲者进一步警告，若算力可以系统性换取更大搜索能力，资源集中可能扩大认知与权力差距。",
+        "title": "价值判断与资源分配是课程留下的开放边界"
+      }
+    ],
+    "top": "这门课最有价值的结论不是一套提示词模板，而是把 AI 协作理解为一套控制系统：用领域知识把意图写成规格，以高质量上下文限定搜索空间，用 verifier 驱动迭代，并把开放判断、代理指标风险和最终责任留在人这一侧。"
+  },
+  "request": {
+    "cloud_transcription_authorized": false,
+    "depth": "deep",
+    "external_fact_check": false,
+    "output_language": "zh-CN",
+    "questions": [
+      "这门提示词工程课程的整体结构、核心方法和关键论点是什么？其论证是否可靠，适合哪些学习者，如何转化为实践，并存在哪些局限、边界条件与可迁移启示？"
+    ],
+    "retain_cache": false
+  },
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "source": {
+    "creator": "绿导师原谅你了",
+    "duration_seconds": 5906.0,
+    "language": "zh",
+    "platform": "bilibili",
+    "title": "提示词工程 [02-Raw/26生成式软件工程/NJU]",
+    "url": "https://www.bilibili.com/video/BV1CQt365EzW",
+    "video_id": "BV1CQt365EzW"
+  },
+  "status": "INCOMPLETE",
+  "uncertainties": [
+    "Bilibili 未提供可用公开字幕。本报告使用本地 mlx-community/whisper-large-v3-turbo 转写；3,798 个规范化片段覆盖全片，但专有名词、模型版本和英语术语存在误识别可能。引文只选取语义清晰且与画面相互印证的短片段。",
+    "上传者名称不能证明讲者身份，因此证据统一使用中性标签“讲者”，不根据声音、外貌或水印推断真实身份。",
+    "本次未做外部事实核查。关于具体模型能力、训练方法、公开案例、学术发表体系和算力集中后果的内容，均按讲者主张或推测呈现。",
+    "“成熟大型代码库反而更容易”“当前模型在可验证任务上超过大多数人”等结论主要来自经验性观察和课堂演示，缺少跨模型、跨任务的对照数据。",
+    "课程末尾关于算力与社会分层的推演是重要的开放问题，但因果链依赖模型效率、访问制度、并行协调成本和公共政策等多重未知条件。",
+    "报告的 JSON、真实帧资源和自包含 HTML 已通过确定性校验，但内置浏览器的 URL 安全策略禁止打开本地 file:// 页面，并禁止通过本地 HTTP 或其他浏览器绕过；因此桌面、窄屏和打印版式尚未完成实际视觉验收。"
+  ]
+}

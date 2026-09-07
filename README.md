@@ -52,7 +52,7 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `analyze-ai-agent-codebase`: analyze open-source AI agent repositories through layers, contracts, execution loops, tools, and trade-offs
 - `bootstrap-ai-collab-infra`: generate the layered-docs + API catalog + conceptual schema + `CLAUDE.md` + read-only `docs-auto-sync` playbook for arbitrary repositories
 - `change-risk-review`: review git changes for behavior, protocol, and architecture risk before commit, then generate a classified commit message after user confirmation
-- `codex-local-saas-browser`: deterministically prepare and verify CogDB-backed `saas-frontend` HTTPS at `localhost:3000` for the Codex in-app browser, with pinned public certificate trust, exact OIDC callback checks, worktree ownership detection, and safe browser handoff
+- `codex-local-saas-browser`: manually invoked only; deterministically prepare and verify CogDB-backed `saas-frontend` HTTPS at `localhost:3000` for the Codex in-app browser, with pinned public certificate trust, exact OIDC callback checks, worktree ownership detection, and safe browser handoff
 - `feature-intake`: reverse-engineer a Feature Intake Spec from an HTML prototype + backend API docs, scan for five classes of implicit-behavior gaps, and force every gap to an explicit human decision or TODO before implementation
 - `interview-prep-from-project`: mine an existing code project for resume highlights, interview questions, and reference answers, producing three Chinese Markdown documents
 - `jira-auto-fix`: stably reproduce and diagnose a JIRA bug, summarize the review top-down as a plain-language business example, root cause, and recommended solution with evidence-backed Mermaid diagrams when useful, require solution approval before edits, add a regression test, implement the fix, and stop after a locally approved commit
@@ -137,3 +137,7 @@ nickname_candidates = ["Queue Runner", "Ticket Executor", "Dependency Walker"]
 ## Companion files
 
 - [`CLAUDE.md`](CLAUDE.md): concise onboarding for AI assistants working in this repo
+
+## Local task email
+
+See [local mail setup](tools/local-mail/README.md) for the optional Python SMTP notification script with macOS Keychain credentials, preview mode, and explicit delivery status.

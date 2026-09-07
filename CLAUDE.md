@@ -63,6 +63,8 @@ Three conceptual planes work together:
 
 There is **nothing to `npm install` or `docker compose up`** in this repository today.
 
+Local task email is an optional standard-library Python utility at `tools/local-mail/send_mail.py`. See `tools/local-mail/README.md` for SMTP/Keychain setup. It previews by default, sends only with `--send`, and reports uncertain delivery without retrying. Local configuration lives outside the repository at `~/.config/codex-mail/config.json`.
+
 ## 6. Guardrails / forbidden zones
 
 待开发人员补充
