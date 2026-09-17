@@ -20,9 +20,10 @@ Then invoke in your agent terminal (or load the same skill name in your host's s
 /bootstrap-ai-collab-infra      # Scaffold layered docs, integration catalog, and CLAUDE.md for another repo
 /change-risk-review             # Review git changes for risk classification before commit
 /codex-local-saas-browser       # Prepare CogDB SaaS localhost:3000 for the Codex in-app browser
+/explain-clearly                # Manually request a plain-language explanation with examples and Mermaid when useful
 /feature-intake                 # Reverse a single source of truth from HTML prototype + backend API docs, surfacing implicit business behavior as explicit human decisions
 /interview-prep-from-project    # Mine an existing project for resume highlights, interview questions, and reference answers as Markdown docs
-/jira-auto-fix                  # Diagnose with a pyramid/Mermaid review, then test, fix, and locally commit after approvals
+/jira-auto-fix                  # Diagnose with a plain-language, example-driven review plus change-locality check, then test, fix, and locally commit after approvals
 /jira-report-quality-issue      # Review coding work and file approved, verified JIRA issues with screenshot evidence
 /jira-update                    # Preview and apply a completed WARP JIRA fix using the reporter as tester
 /my-jira-query                  # Query and summarize a JIRA issue using skill-local .env credentials
@@ -48,6 +49,7 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 
 ## Included Skills
 
+- `explain-clearly`: manual-only explanations and rewritten answers in plain Chinese, adapted to the current question, with concrete examples and Mermaid diagrams when they improve understanding. In Codex, invoke `$explain-clearly 解释一下……` or `$explain-clearly 把上一段回答换成更容易理解的说法`; `agents/openai.yaml` sets `allow_implicit_invocation: false`.
 - `ai-agent-framework-design-guide`: analyze existing AI agent / skill / runtime systems and write Chinese-first framework design documents with rollout phases, plus optional risks and open questions
 - `analyze-ai-agent-codebase`: analyze open-source AI agent repositories through layers, contracts, execution loops, tools, and trade-offs
 - `bootstrap-ai-collab-infra`: generate the layered-docs + API catalog + conceptual schema + `CLAUDE.md` + read-only `docs-auto-sync` playbook for arbitrary repositories
@@ -55,7 +57,7 @@ Your host may use `@` mentions, rules, or file paths instead of slash commands; 
 - `codex-local-saas-browser`: manually invoked only; deterministically prepare and verify CogDB-backed `saas-frontend` HTTPS at `localhost:3000` for the Codex in-app browser, with pinned public certificate trust, exact OIDC callback checks, worktree ownership detection, and safe browser handoff
 - `feature-intake`: reverse-engineer a Feature Intake Spec from an HTML prototype + backend API docs, scan for five classes of implicit-behavior gaps, and force every gap to an explicit human decision or TODO before implementation
 - `interview-prep-from-project`: mine an existing code project for resume highlights, interview questions, and reference answers, producing three Chinese Markdown documents
-- `jira-auto-fix`: stably reproduce and diagnose a JIRA bug, summarize the review top-down as a plain-language business example, root cause, and recommended solution with evidence-backed Mermaid diagrams when useful, require solution approval before edits, add a regression test, implement the fix, and stop after a locally approved commit
+- `jira-auto-fix`: stably reproduce and diagnose a JIRA bug, then explain the root cause and the fix in plain language through one concrete example (`情境 → 系统做了什么 → 为什么`), check change locality (whether the variation is contained at the boundary that should own it or leaks into many receivers that each guess, convert, and check), add evidence-backed Mermaid diagrams when useful, require solution approval before edits, add a regression test, implement the minimal fix within the stated locality budget, and stop after a locally approved commit
 - `jira-report-quality-issue`: explicitly review the current coding delivery, prepare evidence-backed JIRA drafts and screenshot payloads, then create and verify self-assigned issues only after exact fingerprint approval; its skill-local `.env` accepts JSON-array defaults such as `JIRA_COMPONENTS=["Studio Coordinator"]` and `JIRA_FIX_VERSIONS=["TranswarpCloud Future"]`, while explicitly supplied draft fields (including empty arrays) take precedence
 - `jira-update`: turn a completed repair handoff into a confirmed JIRA comment, tester assignment, and workflow transition, with read-only inspection, an approved WARP default path (`Start Process` → `Start Review` → `Start Test` → `TEST`), reporter-as-tester default, and explicit write approval
 - `my-jira-query`: query JIRA issue details through a read-only Python client configured by a Git-ignored, skill-local `.env` file

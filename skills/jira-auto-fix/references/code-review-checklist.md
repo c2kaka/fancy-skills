@@ -19,6 +19,15 @@ Use this checklist after implementation and before requesting commit approval. M
 - [ ] Callers and downstream consumers remain compatible or are updated coherently.
 - [ ] No unrelated cleanup or refactor is mixed into the fix.
 
+## Change locality
+
+- [ ] The variation that distinguishes the good case from the bad case is named with concrete values in the packet.
+- [ ] The owner boundary and the receiver table (handles / missed / indifferent) are backed by an actual codebase search, not intuition.
+- [ ] The actual diff stays within the locality budget stated in the approved packet (theoretical scope versus touched files).
+- [ ] The diff does not add the same guess, conversion, or check to several receivers for the same reason.
+- [ ] If a local patch was chosen over a boundary fix, the remaining leak is recorded as a structural signal in the risks section.
+- [ ] Locality did not become an excuse for a refactor: only the owner and the receivers named in the approved plan changed.
+
 ## Security and reliability
 
 - [ ] External input is validated at the correct boundary.
@@ -34,6 +43,12 @@ Use this checklist after implementation and before requesting commit approval. M
 - [ ] Comments explain non-obvious reasons rather than restating code.
 - [ ] Temporary compatibility code has a documented removal condition.
 - [ ] Relevant documentation and examples reflect the corrected behavior.
+
+## Packet readability
+
+- [ ] The Phase 5 packet opens with the plain-language outcome, not a stack trace or file path.
+- [ ] The same concrete example is used for reproduction, root cause, and before/after behavior.
+- [ ] Every code identifier in the decision sections is glossed on first use and is there because it pins down the cause.
 
 ## Commit boundary
 

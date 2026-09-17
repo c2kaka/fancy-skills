@@ -1,6 +1,6 @@
 ---
 name: jira-auto-fix
-description: Reproduce, diagnose, fix, test, self-review, and locally commit code for a JIRA bug using a skill-local .env and read-only JIRA REST access. Use when a user asks to fixbug or 修复 an issue such as JIRA-1234 and requires stable reproduction, evidence-backed root-cause analysis, a pyramid-structured review summary with useful Mermaid diagrams, explicit solution approval before edits, regression tests, and a local commit without push or merge request creation.
+description: Reproduce, diagnose, fix, test, self-review, and locally commit code for a JIRA bug using a skill-local .env and read-only JIRA REST access. Use when a user asks to fixbug or 修复 an issue such as JIRA-1234 and requires stable reproduction, a plain-language root-cause analysis walked through one concrete example, a change-locality check (whether the variation is contained at the boundary that should own it or leaks into many receivers), a plain-language solution explanation, explicit solution approval before edits, regression tests, and a local commit without push or merge request creation.
 ---
 
 # JIRA Auto Fix
@@ -13,6 +13,7 @@ Fix one JIRA bug through a gated Codex workflow. Resolve resource paths relative
 - Do not edit tracked project files or add tests until the user explicitly confirms the proposed solution.
 - Do not claim stable reproduction from one observation. Require the same failure on at least two consecutive runs under the same controlled conditions. For intermittent bugs, record the sample size and failure rate and obtain user agreement on the reproduction threshold.
 - Do not claim a root cause unless evidence connects it to the reproduced failure and rules out plausible alternatives.
+- Do not widen the fix into a refactor in the name of locality. Locality analysis decides **where** the fix belongs; the fix itself stays minimal and coherent.
 - Preserve pre-existing worktree changes. Never stash, reset, clean, or overwrite them automatically.
 - Stop after creating a local commit. Never pull, fetch, rebase, push, force-push, or create a merge request.
 - Require user confirmation at both gates: before code/test edits and before the local commit.
@@ -20,38 +21,35 @@ Fix one JIRA bug through a gated Codex workflow. Resolve resource paths relative
 
 ## Review summary contract
 
-Present investigation results top-down so a reader can understand the business failure and make a decision before reading code-level evidence. Write in the user's language and use business terms before implementation jargon.
+Present investigation results top-down so a reader who does not know the code can understand what went wrong, why, and what will change, before reading code-level evidence. Detailed writing rules and a complete worked example are in `references/review-packet-guide.md`; read it before writing the Phase 3 or Phase 5 packet.
 
-Use this pyramid structure for the Phase 3 approval packet:
+### Plain-language rules
 
-1. Lead with **Review conclusion**: one plain-language sentence that classifies the finding (for example, bug, implementation deviation, configuration/data problem, or not yet proven), states the user-visible impact, names the causal fault, and recommends the smallest coherent action.
-2. Expand **1. Business reproduction chain** with one concrete example: starting state and actor, user actions or inputs, system steps, expected result, actual result, and stable reproduction evidence. Tell this as a causal chain rather than a list of disconnected observations.
-3. Expand **2. Root-cause summary**: connect trigger -> invalid state or contract violation -> propagated failure -> visible symptom. Name the responsible code path and decisive evidence, distinguish cause from symptom, and state which plausible alternatives were ruled out.
-4. Expand **3. Recommended solution**: state the minimal fix first, then affected files or boundaries, why it removes the cause, focused test plan, compatibility and operational risks, and rejected alternatives with brief reasons.
-5. Put commands, logs, stack traces, and detailed evidence after the three decision sections. Do not make the reader reconstruct the conclusion from raw diagnostics.
+- Write in the user's language. Use business nouns and verbs first; introduce a code identifier only when it pins down the cause, and gloss any term the reader may not know the first time it appears.
+- Explain every analysis and every solution through **one concrete example** taken from the actual reproduction: real input values, the real intermediate state the system produced, and the real output. Walk it as `情境 → 系统做了什么 → 为什么得到这个结果`, then map each step back to the code.
+- Prefer short sentences with a specific subject and verb ("导出服务把空折扣当成 0 元" rather than "折扣处理存在缺陷"). Preserve conditions, causality, and uncertainty; do not trade accuracy for simplicity.
+- Reuse the same example across the packet: the reproduction chain shows it failing, the root cause explains why, the solution shows the same input producing the correct result after the fix.
 
-Use Markdown headings whose wording matches the user's language. For a Chinese response, prefer exactly `Review 结论`, `1. 业务复现链路`, `2. 问题根因总结`, and `3. 推荐解决方案`.
+### Pyramid structure
+
+Use this order for the Phase 3 approval packet. For a Chinese response, prefer exactly these headings: `Review 结论`, `1. 业务复现链路`, `2. 问题根因总结`, `3. 推荐解决方案`.
+
+1. **Review 结论** — One plain-language sentence that classifies the finding (bug, implementation deviation, configuration/data problem, or not yet proven), states the user-visible impact, names the causal fault, and recommends the smallest coherent action. Add one sentence on change locality: whether the variation is contained where it belongs or leaks into many receivers.
+2. **1. 业务复现链路** — The concrete example told as a causal chain: starting state and actor, exact inputs, system steps, expected result, actual result, and stable reproduction evidence (2+ matching failures).
+3. **2. 问题根因总结** — Three parts, in order:
+   - **一句话根因**: what the system misunderstood or skipped, in business terms.
+   - **用例子讲清楚**: rerun the concrete example step by step, showing the exact point where the state becomes wrong and why the code makes that choice. Name the responsible code path and the decisive evidence, separate cause from symptom, and state which plausible alternatives were ruled out.
+   - **变化的局部性**: identify the variation (the input, path, field, state, or format that differs between the good and bad case), name the boundary that should own it, list every receiver that currently guesses, converts, or checks it independently, and state the verdict: `已关住` (one owner, one missed spot) or `已泄漏` (many receivers each handle it). Follow `references/change-locality.md`.
+4. **3. 推荐解决方案** — Four parts, in order:
+   - **一句话方案**: what will change, in business terms ("让订单恢复时在一个地方统一补回折扣，而不是每个页面自己判断").
+   - **修复后的同一个例子**: same input, new intermediate state, correct output.
+   - **局部性检查**: which modules a change on this path should touch in theory, which files the proposal actually touches, and how many of those are receivers adding their own guard. If the fix would edit many receivers for the same reason, say so explicitly and either move the fix to the owning boundary or justify the local patch and record the structural signal.
+   - **落地细节**: affected files or boundaries, why the change removes the cause, focused test plan, compatibility and operational risks, and rejected alternatives with brief reasons.
+5. Put commands, logs, stack traces, and detailed evidence after the four decision sections. Do not make the reader reconstruct the conclusion from raw diagnostics.
 
 ### Mermaid guidance
 
-Use Mermaid when it materially clarifies a chain that has at least three dependent steps, crosses modules or actors, branches between expected and actual behavior, or depends on state transitions or timing.
-
-- Use `flowchart LR` for a business/data-flow chain, `sequenceDiagram` for request or actor ordering, and `stateDiagram-v2` for lifecycle or timing defects.
-- Prefer one focused diagram. Use a second only when the business path and the code-level causal path are genuinely different and both are hard to explain linearly.
-- Label nodes in plain business language; add code identifiers only where they establish the root cause. Make the failure point and expected/actual split visually explicit.
-- Draw only evidence-backed steps. Mark uncertainty as unverified in the text instead of making a speculative diagram look authoritative.
-- Keep diagrams small enough to scan. A simple issue does not need a decorative diagram.
-
-Example business-chain diagram:
-
-```mermaid
-flowchart LR
-    A["用户打开已保存的订单"] --> B["系统恢复订单明细"]
-    B --> C["系统错误地丢失折扣状态"]:::failure
-    C --> D["页面显示未折扣总价"]
-    B -. "期望" .-> E["保留折扣并显示正确总价"]
-    classDef failure fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
-```
+Use Mermaid when it materially clarifies a chain that has at least three dependent steps, crosses modules or actors, branches between expected and actual behavior, or depends on state transitions or timing. Use `flowchart LR` for business/data flow, `sequenceDiagram` for actor ordering, and `stateDiagram-v2` for lifecycle defects. A locality diagram that shows one variation fanning out into many receivers is often the clearest way to show a leak. Label nodes in plain business language, mark the failure point visually, draw only evidence-backed steps, and keep one focused diagram per packet unless the business path and the code path are genuinely different. Examples are in `references/review-packet-guide.md`.
 
 ## Configure JIRA
 
@@ -96,32 +94,39 @@ Keep tracked project files unchanged during this phase.
    - command, route, or runtime entry point used.
 2. Prefer an existing focused test or a deterministic runtime command. Do not add diagnostic code or a new test before solution approval.
 3. Reproduce the same failure at least twice consecutively. Capture exact commands, relevant output, stack traces, logs, and observed state without exposing secrets.
-4. If the bug is intermittent, run a bounded sample, report attempts and failures, and do not label it stable without a repeatable trigger or a user-approved statistical threshold.
-5. If reproduction is blocked by missing access, data, environment, or instructions, report the attempts and ask for the missing input. Do not guess a fix.
+4. Record the concrete values of the failing case (input, intermediate state, output). They become the single example used throughout the review packet.
+5. If the bug is intermittent, run a bounded sample, report attempts and failures, and do not label it stable without a repeatable trigger or a user-approved statistical threshold.
+6. If reproduction is blocked by missing access, data, environment, or instructions, report the attempts and ask for the missing input. Do not guess a fix.
 
-## Phase 3: Prove the root cause and propose a solution
+## Phase 3: Prove the root cause, check locality, and propose a solution
 
 1. Trace the failing control flow and data flow from the reproduced signal to the responsible code.
 2. Inspect callers, boundaries, state transitions, configuration, relevant tests, and `git log` or `git blame` where useful.
 3. Form competing hypotheses and use evidence to eliminate them. Distinguish the root cause from downstream symptoms.
-4. Define the smallest coherent fix, affected files, compatibility and migration impact, risk, and focused regression plan.
-5. Present the approval packet using the `Review summary contract`. Include the JIRA key and summary, stable reproduction conditions and 2+ matching failures, expected versus actual behavior, causal code evidence, minimal file-level solution, alternatives, test plan, and risks inside the appropriate pyramid section.
-6. Stop and wait. Continue only after the user explicitly confirms the solution. If the user requests changes, revise the analysis and request confirmation again.
+4. Run the locality analysis from `references/change-locality.md`:
+   - name the variation that distinguishes the good case from the bad case;
+   - name the boundary that should own it (the producer, adapter, parser, or normalizer where the variation enters the system);
+   - search the codebase for every receiver that independently guesses, converts, or checks that variation, and count them;
+   - decide whether the variation is contained (`已关住`) or leaked (`已泄漏`), and whether the reported bug is a single missed spot or one instance of a systemic leak.
+5. Define the smallest coherent fix. When the variation is leaked, prefer closing it at the owning boundary if that change is small and coherent; otherwise patch the missed receiver and record the structural signal explicitly. State the locality budget: which modules a change on this path should touch in theory versus which files the fix touches in practice.
+6. Present the approval packet using the `Review summary contract`. Include the JIRA key and summary, stable reproduction conditions and 2+ matching failures, the concrete example, the plain-language root cause, the locality verdict, the plain-language solution with the same example after the fix, the locality check, alternatives, test plan, and risks inside the appropriate pyramid section.
+7. Stop and wait. Continue only after the user explicitly confirms the solution. If the user requests changes, revise the analysis and request confirmation again.
 
 ## Phase 4: Add the regression test, then fix
 
 After solution approval:
 
-1. Add the narrowest regression test that expresses the reproduced failure.
+1. Add the narrowest regression test that expresses the reproduced failure, using the same concrete example where practical.
 2. Run the new test before changing production code and capture that it fails for the expected reason. If this ordering is technically impossible, explain why and agree on equivalent evidence before proceeding.
 3. Implement the approved minimal fix. Do not include unrelated refactors.
-4. Run the regression test and confirm it passes.
-5. Run relevant boundary, error, and existing regression checks in proportion to risk. Use the repository's actual build and test commands rather than assuming Maven.
-6. Review the complete diff against `references/code-review-checklist.md`.
+4. Compare the actual diff against the locality budget stated in the packet. If the fix is spreading into more receivers than planned, stop and report before continuing; this usually means the variation is not closed where it should be.
+5. Run the regression test and confirm it passes.
+6. Run relevant boundary, error, and existing regression checks in proportion to risk. Use the repository's actual build and test commands rather than assuming Maven.
+7. Review the complete diff against `references/code-review-checklist.md`.
 
 ## Phase 5: Report and request commit approval
 
-Reuse the top-down `Review summary contract`, but change **Recommended solution** to **Implemented solution**. Lead with the outcome, then show the same business chain as before/after behavior, the confirmed root cause and fix mapping, files changed and why, the regression test's before-fix failure and after-fix pass, focused and broader verification, self-review findings, remaining risks, the proposed local commit message containing the exact JIRA issue key, and the exact files to stage.
+Reuse the top-down `Review summary contract`, but change **3. 推荐解决方案** to **3. 已实施方案**. Lead with the outcome in plain language, then show the same concrete example as before/after behavior, the confirmed root cause and fix mapping, the locality check against the actual diff (planned versus touched files, receivers edited and why), files changed and why, the regression test's before-fix failure and after-fix pass, focused and broader verification, self-review findings, remaining risks including any recorded structural signal, the proposed local commit message containing the exact JIRA issue key, and the exact files to stage.
 
 Stop and wait for explicit commit approval. Adjust the fix if requested.
 
@@ -142,5 +147,6 @@ After commit approval:
 - JIRA 404: verify the issue key and permissions.
 - Network failure: verify JIRA URL, VPN, and connectivity.
 - Unstable or blocked reproduction: stop before root-cause claims and code edits.
+- Locality search inconclusive (dynamic dispatch, reflection, generated code): report the receivers found, state that the count is a lower bound, and do not label the variation `已关住` on incomplete evidence.
 - Test failure unrelated to the fix: separate baseline failures from regressions and report both.
 - Commit failure: preserve the worktree and report the exact error; do not retry with destructive Git operations.
